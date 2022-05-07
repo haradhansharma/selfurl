@@ -1,0 +1,117 @@
+{% extends "layouts/base_full.html" %}
+
+{% block title %}{{site.slogan}}{% endblock %} 
+
+{% block content %}
+<section class="vh-lg-100 mt-5 bg-soft d-flex align-items-center">
+    <div class="container h-100">
+        <div class="row justify-content-sm-center h-100">
+            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+                
+                <div class="card shadow-lg">
+                    <div class="card-body p-5">
+                        <h1 class="fs-4 card-title fw-bold mb-4">{{site.slogan}}</h1>
+
+                        {% if messages %}   
+                                <div class="col-12 text-start">
+                                    <div class="alert alert-secondary shadow-soft" role="alert">                            
+                                        {% for message in messages %}
+                                        <span class="alert-inner--text">{{ message }}</span>
+                                        {% endfor %}                            
+                                    </div>                        
+                                </div>
+                                {% endif %} 
+
+
+                        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+
+                            {% csrf_token %}
+
+
+                            <!-- Form -->
+                            <div class="form-group mb-4">
+                                <label class="mb-2 text-muted" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                                <div class="input-group">
+                                    
+                                    {{ form.username }}
+                                </div>  
+                                <span class="text-error invalid-feedback">{{ form.username.errors }}</span>
+                            </div>
+                            <!-- End of Form -->
+
+                            <!-- Form -->
+                            <div class="form-group mb-4">
+                                <label class="mb-2 text-muted" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                <div class="input-group">
+                                    
+                                    {{ form.email }}
+                                </div>  
+                                <span class="text-error invalid-feedback">{{ form.email.errors }}</span>
+                            </div>
+                            <!-- End of Form -->
+
+                            <!-- Form -->
+                            <div class="form-group mb-4">
+                                <label class="mb-2 text-muted" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                                <div class="input-group">
+                                    
+                                    {{ form.password1 }}
+                                </div>  
+                                <span class="text-error invalid-feedback">{{ form.password1.errors }}</span>
+                            </div>
+                            <!-- End of Form -->
+
+                            <!-- Form -->
+                            <div class="form-group mb-4">
+                                <label class="mb-2 text-muted" for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                                <div class="input-group">
+                                    
+                                    {{ form.password2 }}
+                                </div>  
+                                <span class="text-error invalid-feedback">{{ form.password2.errors }}</span>
+                            </div>
+                            <!-- End of Form -->
+
+                            <!-- Form -->
+                            <div class="form-group mb-4">
+                                
+                                <div class="input-group">
+                                    
+                                    {{ form.captcha }}
+                                </div>  
+                                <span class="text-error invalid-feedback">{{ form.captcha.errors }}</span>
+                            </div>
+                            <!-- End of Form -->
+
+
+
+                            <p class="form-text text-muted mb-3">
+                                By registering you agree with our terms and condition.
+                            </p>
+
+                            <div class="align-items-center d-flex">
+                                <button type="submit" class="btn btn-primary ms-auto">
+                                    Register	
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer py-3 border-0">
+                        <div class="text-center">
+                            Already have an account?                             
+                            <a href="{% url 'login' %}" class="fw-bold">Login</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="my-4 btn btn-outline-primary mx-auto w-100" href="/">Back To Home</a>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}
+
+

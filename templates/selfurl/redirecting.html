@@ -1,0 +1,150 @@
+
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}{{site.slogan}}{% endblock %} 
+
+{% block content %}
+
+
+    <div class="container-fluid bg-white p-0">
+        {% include "layouts/loading_spiner.html" %}
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid position-relative p-0">
+            
+
+            {% include "layouts/navbar.html" %}
+
+            <!--<div class="container-xxl py-5 bg-primary hero-header mb-5">-->
+            <div class="container-fluid py-5 bg-primary mb-5">
+                <div class="container my-5 py-5 px-lg-5">
+                    <div class="row justify-content-center">
+                        
+
+
+
+                        
+
+
+                        <div class="col-lg-6 text-center align-center">
+                            <h1 class="text-danger mb-4 animated zoomIn"><strong>PLEASE WAIT...</strong></h1>
+                            <button class="btn btn-warning display-4" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                {{redirecting}}
+                            </button>
+                            <p class="text-white pb-3 animated zoomIn mt-4"> {{site.description}}</p>
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6547428806314947"
+                            crossorigin="anonymous"></script>
+                        <!-- selfurl -->
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-6547428806314947"
+                            data-ad-slot="5628820333"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+
+
+                        </div>
+
+
+                        
+
+                        
+
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+       
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container px-lg-5">
+                <div class="row">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6547428806314947"
+                        crossorigin="anonymous"></script>
+                    <!-- selfurl2 -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-6547428806314947"
+                        data-ad-slot="9918622976"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Newsletter Start -->
+        <div class="container-xxl bg-primary newsletter my-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container px-lg-5">
+                <div class="row">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6547428806314947"
+                        crossorigin="anonymous"></script>
+                    <!-- selfurl2 -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-6547428806314947"
+                        data-ad-slot="9918622976"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </div>
+        <!-- Newsletter End -->
+
+
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6547428806314947"
+                        crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-format="autorelaxed"
+                        data-ad-client="ca-pub-6547428806314947"
+                        data-ad-slot="6035234191"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+
+
+
+        <script type="text/javascript">
+            setTimeout(function() {
+                window.location.href = "{{url}}";
+            }, 5000);
+        </script>
+        
+   
+
+
+
+    </div>
+
+    {% endblock %}
+
+

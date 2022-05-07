@@ -1,0 +1,133 @@
+
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}{{meta_data.title}}{% endblock %} 
+
+{% block content %}
+
+
+    <div class="container-fluid bg-white p-0">
+
+        {% include "layouts/loading_spiner.html" %}
+        
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid position-relative p-0">
+            
+
+            {% include "layouts/navbar.html" %}
+
+            <!--<div class="container-xxl py-5 bg-primary hero-header mb-5">-->
+            <div class="container-fluid py-5 bg-primary mb-5">
+                <div class="container my-5 py-5 px-lg-5">
+                    <div class="row justify-content-center">
+                        
+
+
+
+                        
+
+
+                        <div class="col-12 text-center align-center">
+                            <h1 class="text-danger mb-4 animated zoomIn">{{meta_data.title}}</h1>
+                            <p class="text-white pb-3 animated zoomIn">{{meta_data.description|safe}}</p>
+                        </div>
+
+                        <div class="col-lg-6 text-center align-center">    
+                            <form action="" method="POST">
+                                {% csrf_token %}
+
+                                <div class="position-relative w-100 mt-3 d-flex justify-content-center position-relative w-100 mt-3 d-flex justify-content-center ">
+                                    {{ form.captcha }}
+                                    </div>
+                                <div class="position-relative w-100 mt-3">
+                                    
+
+                                    <div class="col-12 mb-3 mr-0 d-flex justify-content-center">
+                                        <input type="text" class="form-control border-0 w-100 ps-4 text-end " value="{{form.short_url.label}}" style = "height: 48px; border-radius: 0px; " disabled>      
+                                        {{ form.short_url }}      
+                                                       
+                                    </div> 
+                                
+                                    <button type="submit" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary fs-4"></i></button>
+                                </div>
+                                
+                                
+
+
+
+                                
+                                <span class="text-error invalid-feedback">{{ form.long_url.errors }}</span>                            
+                            </form>
+
+
+                        </div>
+
+
+                        
+
+                        
+
+                        <!--    
+                        <div class="col-lg-6 text-center text-lg-start">
+                            <img class="img-fluid" src="{% static 'assets/img/hero.png' %}" alt="">
+                        </div>-->
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 text-start align-center">
+
+                            {% if messages %}                                                     
+                                {% for message in messages %}
+                               <em class="text-danger ">{{ message }}</em> 
+                                {% endfor %}                 
+                            
+                            {% else %} 
+                            
+                            {% endif %} 
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container px-lg-5">
+                <div class="row g-5">
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="section-title position-relative mb-4 pb-2">
+                            
+                            <h2 class="mt-2">We are concerned about your safety.</h2>
+                        </div>
+                        <p class="mb-4">{{meta_data.body|safe}}</p>
+                        
+                        
+                    </div>
+                    <div class="col-lg-6">
+                        <img class="img-fluid wow zoomIn" data-wow-delay="0.5s" src="{% static 'assets/img/about.jpg' %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+
+        
+   
+
+
+
+    </div>
+
+    {% endblock %}
+
+

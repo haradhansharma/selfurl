@@ -1,0 +1,118 @@
+{% extends "layouts/base_full.html" %}
+
+{% block title %}{{site.slogan}}{% endblock %} 
+
+{% block content %}
+
+<section class="vh-lg-100 mt-5 bg-soft d-flex align-items-center">
+    <div class="container  h-100">
+        <div class="row justify-content-sm-center h-100">
+            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+                
+                <div class="card shadow-lg">
+                    <div class="card-body p-5">
+                        <h1 class="fs-4 card-title fw-bold mb-4">{{site.slogan}}</h1>
+
+                        <div class="mb-4 text-muted">
+                            {% if messages %}  
+                            <div class="col-12 text-center">
+                                <div class="alert alert-secondary shadow-soft" role="alert">                            
+                                    {% for message in messages %}
+                                    <span class="alert-inner--text">{{ message }}</span>
+                                    {% endfor %}                            
+                                </div>                        
+                            </div>
+                            {% else %}
+                            
+                            {% endif %} 
+                            {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                            {{ error }}
+                            {% endfor %}
+                            {% endif %} 
+                        </div> 
+
+
+                        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+
+                            {% csrf_token %}
+
+
+                            <!-- Form -->
+                            <div class="form-group mb-4">
+                                <label class="mb-2 text-muted" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                                <div class="input-group">
+                                    
+                                    {{ form.username }}
+                                </div>  
+                                <span class="text-error invalid-feedback">{{ form.username.errors }}</span>
+                            </div>
+                            <!-- End of Form -->
+
+
+                            <!-- Form -->
+                            <div class="form-group mb-4">
+                                <label class="mb-2 text-muted" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                                <a href="{% url 'password_reset' %}" class="float-end">Forget Password?</a>
+                                <div class="input-group">
+                                    
+                                    {{ form.password }}
+                                </div>  
+                                <span class="text-error invalid-feedback">{{ form.password.errors }}</span>
+                            </div>
+                            <!-- End of Form -->
+
+
+                            <!-- Form -->
+                            <div class="form-group mb-4">                         
+                                
+                                <div class="input-group">
+                                    
+                                    {{ form.captcha }}
+                                </div>  
+                                <span class="text-error invalid-feedback">{{ form.captcha.errors }}</span>
+                            </div>
+                            <!-- End of Form -->
+
+
+                            <div class="d-flex justify-content-between align-items-top mb-4">                     
+
+                                <div class="form-check">
+                                    {{ form.remember_me }}
+                                    <label class="mb-2 text-muted"  for="{{ form.remember_me.id_for_label }}">{{ form.remember_me.label }} </label>   
+                                    <span class="btn-primary p-2 rounded-circle" data-bs-toggle="tooltip" data-bs-html="true" title=" If 'remember me' selected the site will save cookies to your opened browser. So that within certain time (currently 30 days) you do not require to re-login. if you do not select 'remember me' then need to login after closing the browser. If your browser settings are set to clear all cookies during closing the browser then site will not save the cookies to your browser or computer to record login data.">
+                                        ?
+                                      </span> 
+                                    <span class="text-error invalid-feedback">{{ form.remember_me.errors }}</span>
+                                </div>
+                                </div>
+
+
+
+
+                            <div class="d-flex align-items-center">
+                                
+                                <button type="submit" class="btn btn-primary ms-auto">
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer py-3 border-0">
+                        <div class="text-center">
+                            Don't have an account?                             
+                            <a href="{% url 'accounts:signup' %}" class="text-dark">Create One</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="my-4 btn btn-outline-primary mx-auto w-100" href="/">Back To Home</a>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+

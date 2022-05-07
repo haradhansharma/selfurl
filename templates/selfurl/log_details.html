@@ -1,0 +1,203 @@
+
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}{{site.slogan}}{% endblock %} 
+
+{% block content %}
+
+
+    <div class="container-fluid bg-white p-0">
+        {% include "layouts/loading_spiner.html" %}
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid position-relative p-0">
+            
+
+            {% include "layouts/navbar.html" %}
+
+            <!--<div class="container-xxl py-5 bg-primary hero-header mb-5">-->
+            <div class="container-fluid py-5 pb-0 bg-primary">
+                <div class="container my-5 mb-0 py-5 px-lg-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 text-center align-center">
+                            <h1 class="text-danger  animated zoomIn">{{site.slogan2}}</h1> 
+                        </div>
+                        <p>{{site.description}}</p>
+
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 text-start align-center">
+                            {% if messages %}                                                     
+                                {% for message in messages %}
+                               <em class="text-danger ">{{ message }}</em> 
+                                {% endfor %}                 
+                            
+                            {% else %} 
+                            
+                            {% endif %}  
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container px-lg-5">
+                <div class="row g-5">
+                    <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="section-title position-relative mb-4 pb-2">
+
+                            
+
+                            <div class="col-lg-4 col-md-6 wow  justify-content-center text-center align-center mx-auto zoomIn mb-4" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+                                <div class="service-item d-flex flex-column justify-content-center text-center align-center rounded">
+                                    
+                                    <h5 class="mb-3">Total URL Clicks</h5>
+                                    <div class="service-icon flex-shrink-0">
+                                        <i class="fa fa-2x">{{clicked}}</i>
+                                       
+                                    </div>
+                                    
+                                    
+                                    
+                                </div>
+                            </div>
+                            <h4>The logs are listed below:</h4>
+
+
+                            {% if visit_logs %}
+
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">URL alias</th>
+                                    <th scope="col">IP</th>
+                                    <th scope="col">Country</th>
+                                    <th scope="col">Latitude</th>
+                                    <th scope="col">Longitude</th>                                    
+                                    <th scope="col">Clicked On</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for visit_log in visit_logs %}
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>
+                                       <p data-bs-toggle="tooltip" data-bs-html="true" title="{{visit_log.shortener.long_url}}">{{visit_log.shortener.short_url}}</p> 
+                                    </td>
+                                    <td>
+                                        {{visit_log.ip}}
+                                    </td>
+                                    <td>
+                                        {{visit_log.country}}
+                                    </td>
+                                    <td>
+                                        {{visit_log.lat}}
+                                    </td>
+                                    <td>
+                                        {{visit_log.long}}
+                                    </td>
+                                    
+                                    <td>
+                                        {{visit_log.visited}}
+                                    </td>
+                                  </tr>
+                                  {% endfor %}
+                                  
+                                  
+                                </tbody>
+                              </table>
+                              
+
+
+
+
+
+
+
+                              <div class=" border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+                                <nav aria-label="Page navigation ">
+                                    <ul class="pagination justify-content-center">
+                                        {% if visit_logs.has_previous %}
+                                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                                        <li class="page-item"><a class="page-link"
+                                                href="?page={{ visit_logs.previous_page_number }}">previous</a></li>
+                                        {% endif %}
+                        
+                                        <li class="page-item page-link"> Page {{ visit_logs.number }} of {{ visit_logs.paginator.num_pages }}.
+                                        </li>
+                        
+                                        {% if visit_logs.has_next %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ visit_logs.next_page_number }}">next</a></li>
+                                        <li class="page-item"> <a class="page-link" href="?page={{ visit_logs.paginator.num_pages }}">last
+                                                &raquo;</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            </div>
+                            {% else %}
+                            <div class="row gt-5">
+                                <center><p>No Visitor Record Found</p></center>
+                            </div>
+                              
+                              {% endif %}
+                            
+                            
+                            
+                        </div>
+
+                       
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
+            <div class="container px-lg-5">
+                <div class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp" data-wow-delay="0.1s">
+                    
+                    <h2 class="mt-2">This url have below melicious report record!</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-12 wow zoomIn" data-wow-delay="0.1s">
+                        <div class="service-item d-flex flex-column justify-content-center text-center rounded">
+                            {% if remark %}
+                            {{remark|safe}}
+                            {% else %}
+                            <p>No Melicious Reports Record Found</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+
+
+        
+   
+
+
+
+    </div>
+
+    {% endblock %}
+
+

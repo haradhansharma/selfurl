@@ -1,0 +1,14 @@
+*.pyc  
+*~  
+__pycache__  
+env
+.vscode
+brand_pictures
+theme
+.DS_Store  
+db.sqlite3
+server_pass.txt
+config/settings.py
+static/assets/scss
+static/assets/gulpfile.js
+static/assets/package.json
