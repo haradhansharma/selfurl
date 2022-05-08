@@ -10,7 +10,7 @@
                           &copy; <a class="border-bottom" href="/">{{site.name}}</a>, All Right Reserved. 
             
             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-            Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+            Designed By <a class="border-bottom" href="https://htmlcodex.com" target="_blank">HTML Codex</a>
                           <br>Developped By: <a class="border-bottom" href="https://hrdnsh.com" target="_blank">Haradhan Sharma</a>
                       </div>
                       <div class="col-md-6 text-center text-md-end">
@@ -18,11 +18,9 @@
                               
                               {% for name, path in footer_menu.items %}
 
-                                {% if forloop.first %}
-                                <a href="{{path}}" class="{% if '/' in segment %} border-bottom {% endif %}">{{ name }}</a>
-                                {% else %}
-                                <a href="{{path}} " class="{% if path in segment %} border-bottom {% endif %}">{{name}}</a>
-                                {% endif %}
+                               
+                                <a href="{{path}} " class="{% if request.path == path %} border-bottom {% endif %}">{{name}}</a>
+                                
                               
                               
                               
@@ -30,6 +28,7 @@
                           </div>
                           
                       </div>
+                      <!--
                       <div class="d-flex pt-2 text-center justify-content-center">
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -37,6 +36,8 @@
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
                     </div> 
+                -->
+
                   </div>
               </div>
           </div>

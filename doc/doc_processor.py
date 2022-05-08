@@ -62,11 +62,6 @@ def header_menu():
     
 
 def comon_doc(request):
-    url_path = list(filter(None, request.path.split('/')))
-    if url_path == []:
-        segs = ['/']
-    else:        
-        segs = [('/' + seg + '/') for seg in url_path]
     
     text = {
         'user_congrets': f"Hi , {request.user.username}",        
@@ -76,6 +71,6 @@ def comon_doc(request):
             'text': text,
             'footer_menu': footer_menu(),
             'header_menu' : header_menu(),
-            'segment' : segs
+            
     }
     

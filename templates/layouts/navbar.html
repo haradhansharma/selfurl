@@ -10,16 +10,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                {% for name, path in header_menu.items %}
-
-                {% if forloop.first %}
-                <a href="{{path}}" class="nav-item nav-link {% if '/' in segment %} active {% endif %}">{{ name }}</a>
-                {% else %}
-                <a href="{{path}}" class="nav-item nav-link {% if path in segment %} active {% endif %} ">{{ name }}</a>
-                {% endif %}
-                
-                
-                {% endfor %}
+                {% for name, path in header_menu.items %}  
+                <a href="{{path}}" class="nav-item nav-link {% if  request.path == path %} active {% endif %} ">{{ name }}</a>
+                {% endfor %} 
                           
                 {% if user.is_authenticated %}            
                 <div class="nav-item dropdown">
