@@ -62,6 +62,9 @@ def header_menu():
     
 
 def comon_doc(request):
+    from django.template.loader import render_to_string
+    
+    google_code = render_to_string("layouts/googlescripts.html")
     
     text = {
         'user_congrets': f"Hi , {request.user.username}",        
@@ -71,6 +74,7 @@ def comon_doc(request):
             'text': text,
             'footer_menu': footer_menu(),
             'header_menu' : header_menu(),
+            'google_code' : google_code
             
     }
     
