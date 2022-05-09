@@ -209,7 +209,7 @@ def redirect_url(request, short_url):
     
     
     title = 'Redirecting...........'
-    description = 'If the Url was made anonymously, it will take 5 seconds to load; else, it will load immediately!'  
+    description = 'If the Url was made anonymously, it will take a few times to load. else, it will load immediately!'  
     
     seo_info = site_info() 
     modify = {
