@@ -109,7 +109,10 @@ def index(request):
                     'site' : seo_info,
                     'acordion':Acordion.objects.filter(path='selfurl:index')           
                     }
-                return render(request, 'selfurl/index.html', context = context)     
+                return render(request, 'selfurl/index.html', context = context)    
+        else:
+            messages.error(request, 'Invalid form submission.')
+            messages.error(request, form.errors)   
     context = {
         'form': form,
         'meta_data' : meta_data ,
@@ -208,8 +211,8 @@ def redirect_url(request, short_url):
     url = ''
     
     
-    title = 'Redirecting...........'
-    description = 'If the Url was made anonymously, it will take a few times to load. else, it will load immediately!'  
+    title = f'{short_url}...........'
+    description = 'Since it was created by an unregistered user, you need to click on the button above to reach the desired goal. If after visiting you think it has been used for some malicious purpose, let us know by clicking the "Report Malicious" button from the menu. We will take action!'  
     
     seo_info = site_info() 
     modify = {
@@ -234,8 +237,7 @@ def redirect_url(request, short_url):
             user_agent = user_agent, 
             country = geodata.get('country_code'), 
             lat = geodata.get('latitude'), 
-            long =  geodata.get('longitude')
-            
+            long =  geodata.get('longitude')            
             )
         
                 
@@ -247,7 +249,7 @@ def redirect_url(request, short_url):
      
     
     context = {
-        'redirecting' : 'Redirecting...........',
+        'redirecting' : f'Click To got to {seo_info.get("canonical")} ',
         'url' : url,        
         'site' : seo_info ,
             }
