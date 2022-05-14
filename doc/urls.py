@@ -16,9 +16,7 @@ urlpatterns = [
     path('su/terms-and-conditions/', views.terms_and_conditions, name='terms_and_conditions'),
     path('su/privacy-policy/', views.privacy_policy, name='privacy_policy'),  
     
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
 
 
 # def get_doc_urls():        
