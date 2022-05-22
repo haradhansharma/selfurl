@@ -29,6 +29,33 @@ class UserSitemap(sitemaps.Sitemap):
     def location(self, obj):
         return "/accounts/%s"  % (obj.username)
     
+class UrlLogsSitemap(sitemaps.Sitemap):
+    changefreq = "daily"
+    priority = 0.8    
+
+    def items(self):
+        return Shortener.objects.all() 
+    
+    def lastmod(self, obj):
+        return obj.created
+        
+    def location(self, obj):
+        return "/logs/%s"  % (obj.short_url)
+    
+class UrlSitemap(sitemaps.Sitemap):
+    changefreq = "daily"
+    priority = 0.8    
+
+    def items(self):
+        return Shortener.objects.all() 
+    
+    def lastmod(self, obj):
+        return obj.created
+        
+    def location(self, obj):
+        return "/%s"  % (obj.short_url)
+    
+    
 
     
  

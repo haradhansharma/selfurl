@@ -17,6 +17,8 @@ app_name = 'selfurl'
 sitemaps = {
     'static': SelfurlSitemap,
     'experiencesitemap': UserSitemap,   
+    'logssitemap' : UrlLogsSitemap,
+    'urlsitemap' : UrlSitemap,
     
 }
 

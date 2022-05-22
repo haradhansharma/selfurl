@@ -16,7 +16,7 @@ urlpatterns = [
     path('su/terms-and-conditions/', views.terms_and_conditions, name='terms_and_conditions'),
     path('su/privacy-policy/', views.privacy_policy, name='privacy_policy'),  
     
-]
+] 
 
 
 # def get_doc_urls():        
