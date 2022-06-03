@@ -22,8 +22,8 @@
                 <div class="container my-5 py-5 px-lg-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-6 text-center align-center">
-                            <h1 class="text-danger mb-4 animated zoomIn">{{meta_data.title}}</h1>
-                            <p class="text-white pb-3 animated zoomIn">{{meta_data.description}}</p>
+                            <h1 class="text-danger mb-4 animated zoomIn">{{meta_data.title|safe}}</h1>
+                            <p class="text-white pb-3 animated zoomIn">{{meta_data.description|safe}}</p>
 
 
                             <form action="" method="POST">
