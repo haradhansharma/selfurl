@@ -13,7 +13,7 @@ from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from doc.doc_processor import site_info
 from django.contrib.auth import update_session_auth_hash
 
@@ -105,6 +105,114 @@ def password_change(request):
         'site' : seo_info ,
     }
     return render(request, 'registration/change_pass.html', context = context)
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        
+        
+        from doc.models import MetaText, Acordion
+    
+        meta_data = MetaText.objects.get(path='accounts:password_reset_complete')   
+        title = meta_data.title
+        description = meta_data.description    
+        
+        seo_info = site_info() 
+        modify = {
+            'canonical' : self.request.build_absolute_uri(reverse('accounts:password_reset_complete')),
+            'description': description,        
+            'slogan': title + f" to {seo_info.get('domain')}"            
+        }    
+        seo_info.update(modify)   
+        
+        context['meta_data'] = meta_data
+        context['site'] = seo_info
+        
+        return context
+
+class CustomPasswordResetView(PasswordResetView):
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        
+        
+        from doc.models import MetaText, Acordion
+    
+        meta_data = MetaText.objects.get(path='accounts:password_reset')   
+        title = meta_data.title
+        description = meta_data.description    
+        
+        seo_info = site_info() 
+        modify = {
+            'canonical' : self.request.build_absolute_uri(reverse('accounts:password_reset')),
+            'description': description,        
+            'slogan': title + f" to {seo_info.get('domain')}"            
+        }    
+        seo_info.update(modify)   
+        
+        context['meta_data'] = meta_data
+        context['site'] = seo_info
+        
+        return context
+    
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        
+        
+        from doc.models import MetaText, Acordion
+    
+        meta_data = MetaText.objects.get(path='accounts:password_reset_done')   
+        title = meta_data.title
+        description = meta_data.description    
+        
+        seo_info = site_info() 
+        modify = {
+            'canonical' : self.request.build_absolute_uri(reverse('accounts:password_reset_done')),
+            'description': description,        
+            'slogan': title + f" to {seo_info.get('domain')}"            
+        }    
+        seo_info.update(modify)   
+        
+        context['meta_data'] = meta_data
+        context['site'] = seo_info
+        
+        return context
+    
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    def get_context_data(self, **kwargs):
+        
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        
+        
+        
+        from doc.models import MetaText, Acordion
+    
+        # meta_data = MetaText.objects.get(path='accounts:password_reset_confirm')   
+        title = 'Confirm your new password'
+        description = 'Please select a strong password and remember it for further use!  '
+        
+        seo_info = site_info() 
+        modify = {
+            'canonical' : self.request.build_absolute_uri(self.request.META['PATH_INFO']),
+            'description': description,        
+            'slogan': title + f" to {seo_info.get('domain')}"            
+        }    
+        seo_info.update(modify)   
+        
+        # context['meta_data'] = meta_data
+        context['site'] = seo_info
+        
+        return context
+
+    
 
 
 class CustomLoginView(LoginView):
