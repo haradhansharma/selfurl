@@ -3,16 +3,31 @@
 {% block title %}{{site.slogan}}{% endblock %} 
 
 {% block content %}
-<section class="vh-lg-100 mt-5 bg-soft d-flex align-items-center">
-    <div class="container h-100">
-        <div class="row justify-content-sm-center h-100">
-            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-                
-                <div class="card shadow-lg">
-                    <div class="card-body p-5">
-                        <h1 class="fs-4 card-title fw-bold mb-4">{{site.slogan}}</h1>
 
-                        {% if messages %}   
+
+<div class="container-xxl py-5">
+    <div class="container px-lg-5">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                <div class="section-title position-relative mb-4 pb-2">
+                    
+                    <h2 class="mt-2">{{site.slogan}}</h2>
+                </div>
+                <p class="mb-4"></p>
+
+                {{meta_data.body|safe}}
+                
+       
+                
+            </div>
+            <div class="col-lg-6 wow zoomIn"  data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">
+                <div class="section-title position-relative mb-4 pb-2">
+                    
+                    <h2 class="mt-2">The form below is ready to congratulate you on your information!</h2>
+                </div>
+                <p class="mb-4"></p>
+                
+                {% if messages %}   
                                 <div class="col-12 text-start">
                                     <div class="alert alert-secondary shadow-soft" role="alert">                            
                                         {% for message in messages %}
@@ -95,17 +110,31 @@
                                 </button>
                             </div>
                         </form>
-                    </div>
-                    <div class="card-footer py-3 border-0">
-                        <div class="text-center">
-                            Already have an account?                             
-                            <a href="{% url 'login' %}" class="fw-bold">Login</a>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <div class="text-center">
+                Already have an account?                             
+                <a href="{% url 'login' %}" class="fw-bold">Login</a>
+            </div>
+        </div>
+        <div class="col-12">
+            <a class="my-4 btn btn-outline-primary mx-auto w-100" href="/">Back To Home</a>
+            
+        </div>
+    </div>
+    
+</div>
 
-                <a class="my-4 btn btn-outline-primary mx-auto w-100" href="/">Back To Home</a>
-                
+
+
+
+<section class="vh-lg-100 mt-5 bg-soft align-items-center">
+    <div class="container h-100">
+        <div class="row justify-content-center h-100">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="col-12 col-md-6">
+            </div>
+            <div class="col-12 col-md-6">
+            </div>
             </div>
         </div>
     </div>

@@ -318,7 +318,7 @@ def signup(request):
         'site' : seo_info ,      
         
     }
-    return render(request, 'registration/register.html', context = context)
+    return render(request, 'registration/register.html', context = context) 
 
 def activate(request, uidb64, token):
     try:
