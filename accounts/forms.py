@@ -64,6 +64,24 @@ class ProfileForm(forms.ModelForm):
         }
 
 
+class SetPasswordForm(SetPasswordForm):
+
+    def __init__(self, *args, **kwargs):
+        super(SetPasswordForm, self).__init__(*args, **kwargs)        
+        self.fields['new_password1'].widget = forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class':'form-control'})
+        self.fields['new_password2'].widget = forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class':'form-control'})
+        
+        
+        
+class PasswordResetForm(PasswordResetForm):
+
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetForm, self).__init__(*args, **kwargs)        
+        self.fields['email'].widget = forms.EmailInput(attrs={ 'class':'form-control'}) 
+        
+        
+
+
 class PasswordChangeForm(PasswordChangeForm):
 
     def __init__(self, *args, **kwargs):

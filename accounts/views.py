@@ -133,6 +133,11 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
         return context
 
 class CustomPasswordResetView(PasswordResetView):
+    from .forms import PasswordResetForm
+    
+    #overwriting form class to take control over default django
+    form_class = PasswordResetForm
+    
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
@@ -185,6 +190,11 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
         return context
     
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    from .forms import SetPasswordForm
+    
+    #overwriting form class to take control over default django
+    form_class = SetPasswordForm
+    
     def get_context_data(self, **kwargs):
         
         # Call the base implementation first to get a context
@@ -221,6 +231,7 @@ class CustomLoginView(LoginView):
     
     #overwriting form class to take control over default django
     form_class = LoginForm 
+    
     
     #overwriting to set custom after login path
     next_page = ''

@@ -1,5 +1,5 @@
 {% extends "layouts/base_full.html" %}
-
+{% load static %}
 {% block title %}{{site.slogan}}{% endblock %} 
 
 {% block content %}
@@ -7,6 +7,15 @@
 
 <div class="container-xxl py-5">
     <div class="container px-lg-5">
+        <div class="row text-center m-auto">
+
+            <div class="col-12 mb-4">
+                <a href="/" class="p-3">            
+                    <img src="{% static site.logo %}" alt="{{site.domain}}">
+                </a>
+    
+            </div>
+           </div> 
         <div class="row g-5">
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
                 <div class="section-title position-relative mb-4 pb-2">
