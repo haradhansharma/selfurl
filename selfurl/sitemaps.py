@@ -34,7 +34,7 @@ class UrlLogsSitemap(sitemaps.Sitemap):
     priority = 0.8    
 
     def items(self):
-        return Shortener.objects.filter(creator__isnull = True, active = True).order_by('-updated')  
+        return Shortener.objects.filter(active = True).order_by('-updated')  
     
     def lastmod(self, obj):
         return obj.created
