@@ -21,7 +21,7 @@ class UserSitemap(sitemaps.Sitemap):
     priority = 0.8    
 
     def items(self):
-        return User.objects.all() 
+        return User.objects.all().order_by('-date_joined')
     
     def lastmod(self, obj):
         return obj.date_joined
@@ -34,7 +34,7 @@ class UrlLogsSitemap(sitemaps.Sitemap):
     priority = 0.8    
 
     def items(self):
-        return Shortener.objects.all() 
+        return Shortener.objects.filter(creator__isnull = True, active = True).order_by('-updated')  
     
     def lastmod(self, obj):
         return obj.created
@@ -47,7 +47,7 @@ class UrlSitemap(sitemaps.Sitemap):
     priority = 0.8    
 
     def items(self):
-        return Shortener.objects.all() 
+        return Shortener.objects.filter(creator__isnull = True, active = True).order_by('-updated')   
     
     def lastmod(self, obj):
         return obj.created

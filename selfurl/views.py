@@ -348,7 +348,7 @@ def statistics(request):
 
 
 
-
+@login_required
 def log_details(request, short_url):
     seo_info = site_info() 
     modify = {
