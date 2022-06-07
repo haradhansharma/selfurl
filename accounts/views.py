@@ -283,35 +283,9 @@ class CustomLoginView(LoginView):
 
 def signup(request): 
     
-    # import urllib3
-    import json
-    # http = urllib3.PoolManager()
-    # r = http.request('GET', 'http://www.selfurl.xyz')
-    # print(r.data)
-    
-    import requests
-    from bs4 import BeautifulSoup
+ 
     
     
-    headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/46.0.2490.80'
-}
-
-    url = 'https://stackoverflow.com'    
-    response = requests.get(url, headers=headers)    
-    # dict = response.json()
-    # print(dict)
-    # print(response.text)
-    data = response.text
-    soup = BeautifulSoup(data, features="html.parser")
-    metas = soup.find_all('meta')
-    for m in metas:
-        if m.get ('name') == 'title':
-            title = m.get('content')
-            print(title)
-        if m.get ('name') == 'description':
-            desc = m.get('content')
-            print(desc)
     
     
     from doc.models import MetaText, Acordion
