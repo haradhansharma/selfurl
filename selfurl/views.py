@@ -242,7 +242,7 @@ def redirect_url(request, short_url):
         raise Http404('Sorry this link is broken :(')
     
     title = f'{short_url}...........'
-    description = 'Since destination was created by an unregistered user, so we are providing creator information that it is created from ip address: {}, country: {} lat: {}, long: {} . You need to click on the button above to reach the destination. If you think it has been used for some malicious purpose, let us know by clicking the <a class="text-danger" target="_blank" href = "{}">Report Malicious</a>. We will take action!'.format(shortener.ip, shortener.country, shortener.lat, shortener.long, reverse('selfurl:report_malicious') ) 
+    description = 'Since destination was created by an unregistered user, so we are providing creator information that it is created from ip address: {}, country: {}, lat: {}, long: {} . You need to click on the button above to reach the destination. If you think it has been used for some malicious purpose, let us know by clicking the <a class="text-danger" target="_blank" href = "{}">Report Malicious</a>. We will take action!'.format(shortener.ip, shortener.country, shortener.lat, shortener.long, reverse('selfurl:report_malicious') ) 
     
     seo_info = site_info()  
     modify = {
