@@ -16,6 +16,7 @@ import random
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.safestring import mark_safe
 
 
 
@@ -94,10 +95,12 @@ def index(request):
                     }
                 return render(request, 'selfurl/index.html', context = context)
             except:
+                user_agent = get_agent(request)       
+                geodata = get_geodata(request)     
                 if request.user.is_authenticated:
-                    new_url = Shortener(long_url=long_url, short_url=check_exists(short_url), creator = request.user)
+                    new_url = Shortener(long_url=long_url, short_url=check_exists(short_url), creator = request.user, ip = get_ip(request), user_agent = user_agent, country = geodata.get('country_code'),  lat = geodata.get('latitude'), long =  geodata.get('longitude'))
                 else:
-                    new_url = Shortener(long_url=long_url, short_url=check_exists(short_url), creator = None)                    
+                    new_url = Shortener(long_url=long_url, short_url=check_exists(short_url), creator = None, ip = get_ip(request), user_agent = user_agent, country = geodata.get('country_code'),  lat = geodata.get('latitude'), long =  geodata.get('longitude'))                    
                 new_url.save()   
                 data = new_url  
                 
@@ -211,16 +214,7 @@ def redirect_url(request, short_url):
     url = ''
     
     
-    title = f'{short_url}...........'
-    description = 'Since it was created by an unregistered user, you need to click on the button above to reach the desired goal. If after visiting you think it has been used for some malicious purpose, let us know by clicking the "Report Malicious" button from the menu. We will take action!'  
     
-    seo_info = site_info() 
-    modify = {
-        'canonical' : request.build_absolute_uri(reverse('selfurl:redirect_url', args=[str(short_url)])),
-        'description': description,        
-        'slogan': title, #it will work as a title as well.             
-    }    
-    seo_info.update(modify) 
     
     try:        
         shortener = Shortener.objects.get(short_url=short_url, active = True)
@@ -246,12 +240,24 @@ def redirect_url(request, short_url):
                        
     except Exception as e:        
         raise Http404('Sorry this link is broken :(')
+    
+    title = f'{short_url}...........'
+    description = 'Since destination was created by an unregistered user, so we are providing creator information that it is created from ip address: {}, country: {} lat: {}, long: {} . You need to click on the button above to reach the destination. If you think it has been used for some malicious purpose, let us know by clicking the <a class="text-danger" target="_blank" href = "{}">Report Malicious</a>. We will take action!'.format(shortener.ip, shortener.country, shortener.lat, shortener.long, reverse('selfurl:report_malicious') ) 
+    
+    seo_info = site_info()  
+    modify = {
+        'canonical' : request.build_absolute_uri(reverse('selfurl:redirect_url', args=[str(short_url)])),
+        'description': description,        
+        'slogan': title, #it will work as a title as well.             
+    }    
+    seo_info.update(modify) 
      
     
     context = {
         'redirecting' : f'Click To got to {seo_info.get("canonical")} ',
         'url' : url,        
         'site' : seo_info ,
+        'visitor_log' : 'The url has been visited {} times from the various location of the internet world'.format(shortener.visitorlog_set.all().count()) 
             }
     return render(request, 'selfurl/redirecting.html', context = context)
 

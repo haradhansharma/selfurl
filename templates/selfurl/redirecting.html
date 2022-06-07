@@ -22,14 +22,16 @@
                 <div class="container my-5 py-5 px-lg-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-6 text-center align-center">
-                            <h1 class="text-danger mb-4 animated zoomIn"><strong>We will get you to your chosen destination in short....</strong></h1>
+                            
                             <a href="{{url}}">
-                            <button class="btn btn-warning display-4" type="button" disabled>
-                                <!--<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>-->
+                            <button class="btn btn-warning p-4 fs-2 mb-4" type="button" disabled>
                                 {{redirecting}}
+                                
                             </button>
                         </a>
-                            <p class="text-white pb-3 animated zoomIn mt-4"> {{site.description}}</p>
+                        <h3 class="text-danger mb-4 animated zoomIn"><strong>We will forward you to--<br> </strong></h3>
+                        <p class="card">{{url}}</p>
+                            <p class="text-white pb-3 animated zoomIn mt-4"> {{site.description|safe}}</p>
                         </div>
                     </div>
                     
@@ -48,15 +50,16 @@
                     <div class="col-12 p-4 text-white">
                    <h4 class="text-white" >At selfurl.xyz, what is a URL shortener?</h4> 
                    <p>
-                    A URL shortener is a program that reduces the length of your long links. Our selfurl tool can cut your long URLs of maximum 2000 characters while still directing them to the same web pages. To use our free URL shortener, simply copy and paste your long link into our tool, and we'll turn it into something more shareable.
+                    A URL shortener is a program that reduces the length of your long links. As per example <b>{{site.canonical}}</b> has been created from <b>{{url}}</b>.  Our selfurl tool can cut your long URLs of maximum 2000 characters while still directing them to the same web pages. To use our free URL shortener, simply copy and paste your long link into our tool, and we'll turn it into something more shareable.
 
                    </p>
 
-                    
+           <p>{{visitor_log}}.</p>     
 
 <p> Since it is a free service we encourage users to register and use it. We request that you do not use our free service for any malicious purpose. This page is for short URLs created by unregistered users. But the URL created by the registered user goes directly and quickly to the desired URL.</p>
-<p>If you think this URL is being used for malicious purposes, report it by clicking the Report Military button from the menu and we will block it immediately. And no one will ever be able to regenerate this short form on our site for the long URL for which it was created.</p>
+<p>If you think this URL is being used for malicious purposes, report it by clicking the <a class="text-danger" href="{% url 'selfurl:report_malicious' %}">Report Malicious</a>  button from the menu and we will block it immediately. And no one will ever be able to regenerate this short form on our site for the long URL for which it was created.</p>
 <p>With our URL shortener, you may make your long links shorter. With branded and personalised links that reflect you, you'll get more hits and visibility. selfurl's statistics is where you can manage your shortened links. Use short URLs for social networking, email campaigns, and other applications. Our links are reliable, safe, and never expire.</p>
+
 </div>
 </div>
             </div>

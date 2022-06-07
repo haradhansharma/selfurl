@@ -20,6 +20,11 @@ class Shortener(models.Model):
     remark = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
+    ip = models.CharField(max_length=152)
+    user_agent = models.TextField()
+    country = models.CharField(max_length=150)
+    lat = models.CharField(max_length=150)
+    long = models.CharField(max_length=150)
 
     class Meta:
         ordering = ["-created"]
