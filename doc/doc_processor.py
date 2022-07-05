@@ -12,7 +12,7 @@ def site_info():
         'canonical' : site.site.domain,
         'meta_name': site.site_meta,
         'description': site.site_description,
-        # 'tag': site.site_meta_tag,
+        'tag': site.site_meta_tag,
         'favicon': site.site_favicon.url,
         'mask_icon': site.mask_icon.url,
         'logo': site.site_logo.url,
