@@ -6,7 +6,7 @@
 {% block content %}
 
 <div class="d-flex align-items-center p-3 my-3 text-primary bg-warning rounded shadow-sm">
-    <img class="me-3" src="{{site.favicon}}" alt="" width="48" height="48">
+    <img class="me-3" src="{% static  'site.favicon' %}" alt="" width="48" height="48">
     <div class="lh-1">
         <h1 class="h6 mb-0 text-primary lh-1">Shortened URL</h1>
         <small>Since {{created_since}}</small>

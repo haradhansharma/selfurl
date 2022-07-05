@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="px-4 py-5 mb-5 text-center  border-bottom ">
-    <img class="d-block mx-auto mb-4" src="{{ site.favicon }}" alt="" width="72" height="72">
+    <img class="d-block mx-auto mb-4" src="{% static  'site.favicon' %}" alt="" width="72" height="72">
     <h1 class="display-5 fw-bold text-primary">{{meta_data.title|safe}}</h1>
     <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">{{meta_data.description|safe}}.</p>
