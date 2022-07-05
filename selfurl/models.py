@@ -17,7 +17,7 @@ class Shortener(models.Model):
     long_url = models.URLField(max_length=2000)
     short_url = models.SlugField(max_length=15, unique=True)
     active = models.BooleanField(default=True)
-    remark = models.TextField(null=True, blank=True)
+    # remark = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
     ip = models.CharField(max_length=152)
@@ -37,6 +37,11 @@ class Shortener(models.Model):
     def save(self, *args, **kwargs):                           
         self.short_url = slugify(self.short_url)
         super().save(*args, **kwargs)
+        
+class ReportMalicious(models.Model):
+    url = models.ForeignKey(Shortener, on_delete=models.CASCADE, related_name='reporturl')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reportuser')
+    created = models.DateTimeField(auto_now_add=True)
         
 class VisitorLog(models.Model):
     shortener = models.ForeignKey(Shortener, on_delete=models.CASCADE)

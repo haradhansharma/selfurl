@@ -1,0 +1,42 @@
+<header class="p-3 bg-light text-primary mb-4 ">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light border-bottom">
+        <div class="container p-2">
+            <a href="/">
+                <img src="{{site.logo}}" height="40" alt="{{site.name}}">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    {% for name, path in header_menu.items %}
+                    <li class="nav-item">
+                        <a href="{{path}}" class="nav-link {% if  request.path == path %} active {% endif %} ">{{ name  }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="nav-link dropdown">
+                    {% if user.is_authenticated %}
+                    <span class="dropdown-toggle" id="dropdownMenuTop" data-bs-toggle="dropdown"
+                        aria-expanded="false">{{user.username}}</span>
+                    {% else %}
+                    <span class="dropdown-toggle" id="dropdownMenuTop" data-bs-toggle="dropdown"
+                        aria-expanded="false">Account</span>
+                    {% endif %}
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuTop">
+                        {% if user.is_authenticated %}
+                        <li><a class="dropdown-item" href="{% url 'accounts:profile_setting' user.username  %}">Profile
+                                Settings</a></li>
+                        <li><a class="dropdown-item" href="{% url 'accounts:change_pass' %}">Change Password</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                        <li><a class="dropdown-item" href="{% url 'accounts:signup' %}">Signup</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

@@ -10,14 +10,14 @@ import json
 import selfurl
 from .forms import ShortenerForm, CheckingForm
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from .models import Shortener, VisitorLog
+from .models import Shortener, VisitorLog, ReportMalicious
 import string
 import random
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.safestring import mark_safe
-
+import arrow
 
 
 CURRENT_DATE_TIME = timezone.now()
@@ -242,7 +242,7 @@ def redirect_url(request, short_url):
         raise Http404('Sorry this link is broken :(')
     
     title = f'{short_url}...........'
-    description = 'Since destination was created by an unregistered user, so we are providing creator information that it is created from ip address: {}, country: {}, lat: {}, long: {} . You need to click on the button above to reach the destination. If you think it has been used for some malicious purpose, let us know by clicking the <a class="text-danger" target="_blank" href = "{}">Report Malicious</a>. We will take action!'.format(shortener.ip, shortener.country, shortener.lat, shortener.long, reverse('selfurl:report_malicious') ) 
+    description = 'Since destination was created by an unregistered user, so we are providing creator information that it is created from ip address: {}, country: {}, lat: {}, long: {} . You need to click on the button below to reach the destination. If you think it has been used for some malicious purpose, let us know by clicking the <a class="text-danger" target="_blank" href = "{}">Report Malicious</a>. We will take action!'.format(shortener.ip, shortener.country, shortener.lat, shortener.long, reverse('selfurl:report_malicious') ) 
     
     seo_info = site_info()  
     modify = {
@@ -254,7 +254,7 @@ def redirect_url(request, short_url):
      
     
     context = {
-        'redirecting' : f'Click To got to {seo_info.get("canonical")} ',
+        'redirecting' : f'Click To got to',
         'url' : url,        
         'site' : seo_info ,
         'visitor_log' : 'The url has been visited {} times from the various location of the internet world'.format(shortener.visitorlog_set.all().count()) 
@@ -287,16 +287,14 @@ def report_malicious(request):
             we will find all orginal url based on the supplied short url and all url will be deactivated               
             '''                 
             short_url = form.cleaned_data["short_url"]
-            url = Shortener.objects.filter(short_url = short_url)            
+            url = Shortener.objects.filter(short_url = short_url)             
             if url.exists():   
                 all_long_url =  Shortener.objects.filter(long_url = url.first().long_url)            
                 for url in all_long_url:
                     url.active = False
-                    if not url.remark:
-                        url.remark = f'{request.user.username} Reported on {CURRENT_DATE_TIME} <br>'                        
-                    else:
-                        url.remark += f'{request.user.username} Reported on {CURRENT_DATE_TIME} <br>' 
                     url.save()
+                    if not (ReportMalicious.objects.filter(url=url, user=request.user)).exists():
+                        ReportMalicious.objects.create(url=url, user=request.user)
                 messages.warning(request, f'We have blocked this url and it is not aviable now! Stay Safe! ')
             else:
                 messages.warning(request, f'This url not found in our record!')
@@ -315,6 +313,42 @@ def report_malicious(request):
     return render(request, 'selfurl/report_melicious.html', context = context)
 
 @login_required
+def allreport(request, short_url):
+    reports = ReportMalicious.objects.filter(url = Shortener.objects.get(short_url = short_url)).order_by('created')
+    created_since = arrow.get((reports.first()).created).humanize()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(reports, 10)
+    try:
+        reports = paginator.page(page)
+    except PageNotAnInteger:
+        reports = paginator.page(1)
+    except EmptyPage:
+        reports = paginator.page(paginator.num_pages)
+    
+    
+    seo_info = site_info() 
+    modify = {
+        'canonical' : request.build_absolute_uri(reverse('selfurl:allreport', args=[str(short_url)])),
+        'description': "All reports submitted for this short URL as malicious are listed here.",  
+        'slogan': f"All Reports of URL",   
+                  
+    }    
+    seo_info.update(modify)  
+    
+    context = {
+        'short_url': short_url,
+        'site' : seo_info ,
+        'reports' : reports,
+        'created_since' : created_since
+          
+        
+                
+            }
+    
+    
+    return render(request, 'selfurl/allreport.html', context=context)
+
+@login_required
 def statistics(request):
     
     from doc.models import MetaText, Acordion
@@ -330,11 +364,16 @@ def statistics(request):
     }    
     seo_info.update(modify)  
     
-    items = Shortener.objects.filter(creator = request.user)  
+    items = Shortener.objects.filter(creator = request.user).order_by('created')  
+    # print((items.first()).created)
+    
+    created_since = arrow.get((items.first()).created).humanize()
+    
+    
     
     #Paginated response
     page = request.GET.get('page', 1)
-    paginator = Paginator(items, 6)
+    paginator = Paginator(items, 10)
     try:
         items = paginator.page(page)
     except PageNotAnInteger:
@@ -348,7 +387,8 @@ def statistics(request):
         'items' : items ,
         'meta_data' : meta_data ,
         'site' : seo_info ,
-        'acordion':Acordion.objects.filter(path='selfurl:statistics') ,                 
+        'acordion':Acordion.objects.filter(path='selfurl:statistics') ,    
+        'created_since' : created_since             
             }
     return render(request, 'selfurl/statistics.html', context = context)
 
@@ -359,8 +399,7 @@ def log_details(request, short_url):
     seo_info = site_info() 
     modify = {
         'canonical' : request.build_absolute_uri(reverse('selfurl:log_details', args=[str(short_url)])),
-        'description': "Every time someone clicks on your short URL, our technology will keep track. It doesn't matter if it came from the same device or from the same person.",        
-        'slogan2': f"Visitor Logs of shorten URL-{short_url}", #it will work as a title as well.    
+        'description': "Every time someone clicks on your short URL, our technology will keep track. It doesn't matter if it came from the same device or from the same person.",  
         'slogan': f"Visitor Logs of shorten URL",         
     }    
     seo_info.update(modify)  
@@ -385,7 +424,7 @@ def log_details(request, short_url):
         'site' : seo_info ,                  
         'visit_logs' : visit_logs ,
         'short_url' : short_url,
-        'remark':  shortener.remark,
+        'reports':  ReportMalicious.objects.filter(url = shortener)[:10],
         'clicked':  shortener.times_followed          
             }
     return render(request, 'selfurl/log_details.html', context = context)

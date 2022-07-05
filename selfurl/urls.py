@@ -47,5 +47,6 @@ def get_self_urls():
 urlpatterns += [
     path('<str:short_url>', views.redirect_url, name='redirect_url'),
     path('logs/<str:short_url>', views.log_details, name='log_details'),
+    path('allreport/<str:short_url>', views.allreport, name='allreport'),
 ]  
 

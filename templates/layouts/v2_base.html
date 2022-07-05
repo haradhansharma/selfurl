@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+ 
+
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="google-site-verification" content="MGTtBLWPpiQbR7H6gZEfcLmjDP0bsmFP3Aa7U8iRmjE" />
+
+<meta name="propeller" content="70a6f1647519f6eebf337a10389233e4">
+
+{% include "layouts/googlescripts.html" %}
+<title>
+    {{site.name}} - {% block title %}{% endblock %}
+</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="{{site.name}} - {{site.slogan}}">
+<meta name="author" content="{{site.domain}}">
+<meta name="description" content="{{site.description}}">
+<link rel="canonical" href="{{site.canonical}}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{site.canonical}}">
+<meta property="og:title" content="{{site.name}} - {{site.slogan}}">
+<meta property="og:description" content="{{site.description}}">
+<meta property="og:image" content="{% static site.og_image %}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="{{site.canonical}}">
+<meta property="twitter:title" content="{{site.name}} - {{site.slogan}}">
+<meta property="twitter:description" content="{{site.description}}">
+<meta property="twitter:image" content="{% static site.og_image %}">
+
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="120x120" href="{% static site.favicon %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static site.favicon %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static site.favicon %}">
+<link rel="manifest" href="{% url 'doc:webmanifest' %}">
+<link rel="mask-icon" href="{% static site.mask_icon %}" color="#ffffff">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'css/main.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'css/custom.css' %}" rel="stylesheet">
+<script src="{% static 'vendor/htmx/htmx.min.js' %}" ></script>
+
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+<body class="d-flex flex-column h-100">
+
+    {% include "layouts/v2_base_header.html" %}   
+    
+    <main class="flex-shrink-0">
+        <div class="container">
+            {% block content %}{% endblock content %}     
+    </div>
+    </main>
+
+
+
+
+
+
+
+
+
+    {% include "layouts/v2_base_footer.html" %}
+    {% include 'layouts/scripts.html' %}        
+    {% block javascripts %}{% endblock javascripts %}
+
+          
+  </body>
+  </html>

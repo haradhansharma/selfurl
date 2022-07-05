@@ -1,80 +1,31 @@
-
-{% extends "layouts/base.html" %}
+{% extends "layouts/v2_base.html" %}
 {% load static %}
 
-{% block title %}{{site.slogan}}{% endblock %} 
+{% block title %}{{site.slogan}}{% endblock %}
 
 {% block content %}
 
-
-    <div class="container-fluid bg-white p-0">
-        {% include "layouts/loading_spiner.html" %}
-
-
-        <!-- Navbar & Hero Start -->
-        <div class="container-fluid position-relative p-0">
-            {% include "layouts/navbar.html" %}            
-            <div class="container-fluid py-5 bg-primary mb-0">
-                <div class="container mb-0 mt-5 pt-5 px-lg-5">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6 text-center align-center">
-                            <h1 class="text-danger mb-4 animated zoomIn">{{site.slogan}}</h1>
-                        </div>
-
-
-                    </div>
-                   
-                </div>
+<div class="row justify-content-center">
+    {% include "layouts/ads_display.html" %} 
+    {% if messages %}
+    <div class="col-12 text-center">
+        <div class="alert alert-secondary shadow-soft" role="alert">
+            {% for message in messages %}
+            <span class="alert-inner--text">{{ message }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    {% include "layouts/ads_display.html" %} 
+    {% endif %}
+    <h2 class="pb-2 border-bottom border-3 border-primary text-danger">{{site.slogan}}</h2>
+    <div class="col-lg-12">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                {% include "terms/privacy_policy.html" %}
             </div>
         </div>
-        <!-- Navbar & Hero End -->
-
-
-
-
-
-               <!-- Contact Start -->
-               <div class="container-xxl py-5">
-                <div class="container px-lg-5">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                            
-
-
-                            {% if messages %}  
-                            <div class="col-12 text-center">
-                                <div class="alert alert-secondary shadow-soft" role="alert">                            
-                                    {% for message in messages %}
-                                    <span class="alert-inner--text">{{ message }}</span>
-                                    {% endfor %}                            
-                                </div>                        
-                            </div>
-                            {% endif %}
-
-
-
-                            <div class="wow fadeInUp" data-wow-delay="0.3s">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-12 col-lg-10">
-                                        {% include "terms/privacy_policy.html" %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Contact End -->
-
-
-
-
-   
-
-
-
     </div>
+</div>
 
-    {% endblock %}
-
-
+{% include "layouts/ads_display.html" %} 
+{% endblock %}

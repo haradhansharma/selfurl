@@ -1,114 +1,62 @@
-
-{% extends "layouts/base_without_ads.html" %}
+{% extends "layouts/v2_base_full.html" %}
 {% load static %}
 
-{% block title %}{{site.slogan}}'s Profile Setting{% endblock %} 
+{% block title %}{{site.slogan}}'s Profile Setting{% endblock %}
 
 {% block content %}
+{% include "layouts/ads_display.html" %}   
 
-<div class="container-fluid bg-white p-0">
-    {% include "layouts/loading_spiner.html" %}
-
-
-    <!-- Navbar & Hero Start -->
-    <div class="container-fluid position-relative p-0">
-        
-
-        {% include "layouts/navbar.html" %}
-
-        <!--<div class="container-xxl py-5 bg-primary hero-header mb-5">-->
-        <div class="container-fluid py-5 bg-primary mb-0">
-            <div class="container mb-0 mt-5 pt-5 px-lg-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6 text-center align-center">
-                        <h1 class="text-danger mb-4 animated zoomIn">{{site.slogan}}</h1>
-                        <p class="text-white pb-3 animated zoomIn">{{site.description}}</p>
-                    </div>
+{{site.slogan}}
+{{site.description}}
 
 
-                </div>
-               
-            </div>
-        </div>
-    </div>
-    <!-- Navbar & Hero End -->
-
-
-
-<div class="container min-vh-100 d-flex align-items-center">
-  
-    <div class="row text-center m-auto">
-
-     
-        
-        
-        
-        <div class="col-md-12">
-
-            <h1 class="fs-4 fw-bold mb-4">Change Password</h1>
-
-            <div class="mb-4 text-muted">
-                {% if messages %}
-                <div class="col-12 text-center">
-                    <div class="alert alert-secondary shadow-soft" role="alert">
-                        {% for message in messages %}
-                        <span class="alert-inner--text">{{ message }}</span>
-                        {% endfor %}
-                    </div>
-                </div>                
-                {% endif %}
-
-                {% if form.non_field_errors %}
-                <div class="col-12 text-center">
-                    <div class="alert alert-secondary shadow-soft" role="alert">
-                {% for error in form.non_field_errors %}
-                {{ error }}
-                {% endfor %}
-                </div>
-                </div>
-                {% endif %} 
-            </div>
-            <div class="col-12" >
-                <form method="post" id = "password_form" action="{% url 'accounts:change_pass' %}">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <div class="form-floating">
-                                {{ password_form.old_password }}
-                                <label class="mb-2 text-muted" for="{{ password_form.old_password.id_for_label }}">{{ password_form.old_password.label }}</label>
-                            </div>
-                            <span class="text-error invalid-feedback">{{ password_form.old_password.errors }}</span>
-                        </div> 
-
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                {{ password_form.new_password1 }}
-                                <label class="mb-2 text-muted" for="{{ password_form.new_password1.id_for_label }}">{{ password_form.new_password1.label }}</label>
-                            </div>
-                            <span class="text-error invalid-feedback">{{ password_form.new_password1.errors }}</span>
-                        </div> 
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                {{ password_form.new_password2 }}
-                                <label class="mb-2 text-muted" for="{{ password_form.new_password2.id_for_label }}">{{ password_form.new_password2.label }}</label>
-                            </div>
-                            <span class="text-error invalid-feedback">{{ password_form.new_password2.errors }}</span>
-                        </div>            
-                    <div class="mt-3">
-                    <input  class="btn btn-primary w-100 py-3" form = "password_form" type="submit" value="Update">  
-                    </div>
-                
-                    </div>       
-                  </form>
-            </div>
-
-            <a class="my-4 btn btn-outline-primary mx-auto w-100" href="/">Back To Home</a>
-            
-        </div>
+{% if messages %}
+<div class="col-12 text-center">
+    <div class="alert alert-secondary shadow-soft" role="alert">
+        {% for message in messages %}
+        <span class="alert-inner--text">{{ message }}</span>
+        {% endfor %}
     </div>
 </div>
-</div>
+{% endif %}
+
+
+
+
+
+
+<form method="post" id="password_form" action="{% url 'accounts:change_pass' %}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <div class="form-floating">
+                {{ password_form.old_password }}
+                <label class="mb-2 text-muted" for="{{ password_form.old_password.id_for_label }}">{{  password_form.old_password.label }}</label>
+            </div>
+            <span class="text-error invalid-feedback">{{ password_form.old_password.errors }}</span>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                {{ password_form.new_password1 }}
+                <label class="mb-2 text-muted" for="{{ password_form.new_password1.id_for_label }}">{{  password_form.new_password1.label }}</label>
+            </div>
+            <span class="text-error invalid-feedback">{{ password_form.new_password1.errors }}</span>
+        </div>
+        <div class="col-md-6">
+            <div class="form-floating">
+                {{ password_form.new_password2 }}
+                <label class="mb-2 text-muted" for="{{ password_form.new_password2.id_for_label }}">{{ password_form.new_password2.label }}</label>
+            </div>
+            <span class="text-error invalid-feedback">{{ password_form.new_password2.errors }}</span>
+        </div>
+        <div class="mt-3">
+            <input class="btn btn-primary w-100 py-3" form="password_form" type="submit" value="Update">
+        </div>
+
+    </div>
+</form>
+{% include "layouts/ads_display.html" %}   
+
 
 {% endblock content %}
-
-

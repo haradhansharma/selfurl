@@ -1,0 +1,35 @@
+<header class="mb-auto">
+    
+        <h3 class="float-md-start mb-0"><a href="/">
+                <img src="{{site.logo}}" height="40" alt="{{site.name}}">
+            </a></h3>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+            {% for name, path in header_menu.items %}
+            <a href="{{path}}" class="nav-link link-warning {% if  request.path == path %} active {% endif %} ">{{ name }}</a>
+            {% endfor %}
+
+            <div class="nav-link link-warning dropdown">
+                {% if user.is_authenticated %}
+                <span class="dropdown-toggle" id="dropdownMenuTop" data-bs-toggle="dropdown"
+                    aria-expanded="false">{{user.username}}</span>
+                {% else %}
+                <span class="dropdown-toggle" id="dropdownMenuTop" data-bs-toggle="dropdown"
+                    aria-expanded="false">Account</span>
+                {% endif %}
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuTop">
+                    {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'accounts:profile_setting' user.username  %}">Profile
+                            Settings</a></li>
+                    <li><a class="dropdown-item" href="{% url 'accounts:change_pass' %}">Change Password</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                    <li><a class="dropdown-item" href="{% url 'accounts:signup' %}">Signup</a></li>
+
+                    {% endif %}
+                </ul>
+            </div>
+
+        </nav>
+    
+</header>

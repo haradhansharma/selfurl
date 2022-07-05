@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row text-center align-items-center justify-content-center mb-4">
+        <div class="mt-5">
+        {% include "layouts/ads_webhostingpad.html" %}
+        </div>
+        <div class="mt-5">
+        {% include "layouts/ads_seranking.html" %}
+        </div>
+
+    </div>
+</div>
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <div class="row text-center align-items-center justify-content-center mb-4">
+            <div class="footer-menu">
+                {% for name, path in footer_menu.items %}
+                <a href="{{path}} " class="me-2 {% if request.path == path %} border-bottom {% endif %}">{{name}}</a>
+                {% endfor %}
+            </div>
+            <p>&copy; All Right Reserved By <a href="https://selfurl.xyz/" class="text-primary">{{site.domain}}</a>,
+                Developped by <a href="https://hrdnsh.com" class="text-warning">Haradhan Sharma</a>.</p>
+        </div>
+
+    </div>
+</footer>
