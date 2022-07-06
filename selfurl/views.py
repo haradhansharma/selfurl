@@ -254,8 +254,7 @@ def redirect_url(request, short_url):
             
             
                        
-    except Exception as e:
-        print(e)
+    except Exception as e:        
         raise Http404('Sorry this link is broken :(')
     
     title = f'{short_url}...........'
