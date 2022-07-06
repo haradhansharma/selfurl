@@ -1,4 +1,5 @@
 
+from urllib.parse import urlparse, urlunparse
 from django.utils import timezone
 from django.contrib import messages
 import time
@@ -211,11 +212,11 @@ def get_geodata(request):
 
 
 def redirect_url(request, short_url):
-    url = ''
+    full_url = request.build_absolute_uri()
+    parser_full = urlparse(full_url)    
     
     
-    
-    
+    url = ''   
     try:        
         shortener = Shortener.objects.get(short_url=short_url, active = True)
         creator = shortener.creator        
@@ -234,11 +235,18 @@ def redirect_url(request, short_url):
             long =  geodata.get('longitude')            
             )
         
-                
-        if creator:        
-            return HttpResponseRedirect(shortener.long_url)
+        if  parser_full.params or parser_full.query or parser_full.fragment:
+            long_parse = urlparse(shortener.long_url)
+            parts = (long_parse.scheme, long_parse.netloc, long_parse.path, parser_full.params, parser_full.query, parser_full.fragment, )
+            redirect_to = urlunparse(parts)
+        else:
+            redirect_to = shortener.long_url     
+               
+        if creator:             
+            return HttpResponseRedirect(redirect_to) 
+            
                        
-    except Exception as e:        
+    except Exception as e:
         raise Http404('Sorry this link is broken :(')
     
     title = f'{short_url}...........'
