@@ -1,5 +1,6 @@
 
 from urllib.parse import urlparse, urlunparse
+from django.conf import settings
 from django.utils import timezone
 from django.contrib import messages
 import time
@@ -244,8 +245,8 @@ def redirect_url(request, short_url):
             redirect_to = shortener.long_url     
                
         if creator:
-            need_to_login = creator.last_login + timezone.timedelta(days=7)
-            if  CURRENT_DATE_TIME >  need_to_login: 
+            need_to_login = creator.last_login + timezone.timedelta(days=settings.LOGIN_REQUIRE_WITHIN_DAYS)
+            if  CURRENT_DATE_TIME <=  need_to_login: 
                 return HttpResponseRedirect(redirect_to) 
             else:
                 return HttpResponse({f'Your las login is {creator.last_login }, You supposed to login before {need_to_login} to get uninterepted service!'})
