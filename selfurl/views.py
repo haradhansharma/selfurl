@@ -248,7 +248,7 @@ def redirect_url(request, short_url):
             if  CURRENT_DATE_TIME >  need_to_login: 
                 return HttpResponseRedirect(redirect_to) 
             else:
-                return HttpResponse({'login_time_over' : f'Your las login is {creator.last_login }, You supposed to login before {need_to_login} to get uninterepted service!'})
+                return HttpResponse({f'Your las login is {creator.last_login }, You supposed to login before {need_to_login} to get uninterepted service!'})
                  
             
             
