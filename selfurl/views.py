@@ -235,6 +235,7 @@ def redirect_url(request, short_url):
             long =  geodata.get('longitude')            
             )
         
+        #to accept api endpoint for registered users.
         if  parser_full.params or parser_full.query or parser_full.fragment:
             long_parse = urlparse(shortener.long_url)
             parts = (long_parse.scheme, long_parse.netloc, long_parse.path, parser_full.params, parser_full.query, parser_full.fragment, )
@@ -242,11 +243,18 @@ def redirect_url(request, short_url):
         else:
             redirect_to = shortener.long_url     
                
-        if creator:             
-            return HttpResponseRedirect(redirect_to) 
+        if creator:
+            need_to_login = creator.last_login + timezone.timedelta(days=7)
+            if  CURRENT_DATE_TIME >  need_to_login: 
+                return HttpResponseRedirect(redirect_to) 
+            else:
+                return HttpResponse('login time over')
+                 
+            
             
                        
     except Exception as e:
+        print(e)
         raise Http404('Sorry this link is broken :(')
     
     title = f'{short_url}...........'
