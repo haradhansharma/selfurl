@@ -40,6 +40,8 @@ def footer_menu():
             menu.name : reverse( menu.path ),
         }         
         menu_items.update(menu_item)       
+        
+    
     
     return menu_items
 
@@ -53,7 +55,8 @@ def header_menu():
         menu_item = {
             menu.name : reverse( menu.path ),
         }         
-        menu_items.update(menu_item)       
+        menu_items.update(menu_item)     
+     
     
     return menu_items
 

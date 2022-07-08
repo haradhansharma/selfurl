@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light border-bottom">
         <div class="container p-2">
             <a href="/">
-                <img src="{% static site.logo %}" height="40" alt="{{site.name}}">
+                <img src="{% static site.logo %}"  height="40" alt="{{ site.name }}">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +16,9 @@
                         <a href="{{path}}" class="nav-link {% if  request.path == path %} active {% endif %} ">{{ name  }}</a>
                     </li>
                     {% endfor %}
+                    <li>
+                        <a href="https://selfurl.xyz/bnhnaqixfo" target="_blank" class="nav-link {% if  request.path == path %} active {% endif %} ">Secure Digital Life</a>
+                    </li>
                 </ul>
                 <div class="nav-link dropdown">
                     {% if user.is_authenticated %}
