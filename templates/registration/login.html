@@ -47,6 +47,10 @@
             
             <div class="text-muted"> Don't have an account? <a href="{% url 'accounts:signup' %}" class="text-dark">Create One</a> </div>
         </form>
+        <div class="mt-2">
+            {% include "layouts/ads_boom_your_identity.html" %}
+        </div>
     </div>
+    
 </div>
 {% endblock content %}
