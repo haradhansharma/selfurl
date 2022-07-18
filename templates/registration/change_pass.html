@@ -4,7 +4,7 @@
 {% block title %}{{site.slogan}}'s Profile Setting{% endblock %}
 
 {% block content %}
-{% include "layouts/ads_display.html" %}   
+
 
 {{site.slogan}}
 {{site.description}}
@@ -19,11 +19,6 @@
     </div>
 </div>
 {% endif %}
-
-
-
-
-
 
 <form method="post" id="password_form" action="{% url 'accounts:change_pass' %}">
     {% csrf_token %}
@@ -56,7 +51,7 @@
 
     </div>
 </form>
-{% include "layouts/ads_display.html" %}   
+
 
 
 {% endblock content %}

@@ -19,7 +19,7 @@
         {% for message in messages %}
         <em class="text-danger ">{{ message }}</em>
         {% endfor %}
-        {% include "layouts/ads_display.html" %} 
+        
         {% else %}
         {% endif %}
     </div>
@@ -31,7 +31,7 @@
         <h1 class="display-5 fw-bold">{{site.slogan}} <br><span class="text-danger">{{short_url}}</span> </h1>
         <p class="text-primary ">{{site.description}}</p>
     </div>
-    {% include "layouts/ads_display.html" %} 
+   
     <h2 class="pb-2 border-bottom border-3 border-primary text-danger">All paginated reports are listed below:</h2>
     <div class="d-flex align-items-center justify-content-center">
         <div class="col-lg-6">
@@ -52,11 +52,11 @@
             <span class="d-block">by_{{report.user.username}}</span>
         </div>
     </div>
-    {% include "layouts/ads_infeed.html" %} 
+  
     {% endfor %}
 </div>
 <div class="col-lg-6">
-    {% include "layouts/ads_multiplex.html" %}
+  
 
 </div>
     </div>

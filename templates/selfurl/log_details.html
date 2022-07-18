@@ -34,7 +34,7 @@
         </div>
     </div>
 </div>
-{% include "layouts/ads_display.html" %}
+
 <h2 class="pb-2 border-bottom border-3 border-primary text-danger">The details logs are listed below:</h2>
 {% if visit_logs %}
 <div class="table-responsive">
@@ -101,7 +101,7 @@
     {% include "layouts/ads_boom_your_identity.html" %}
 </div>
 <div class="mt-2">
-{% include "layouts/ads_display.html" %}
+
 </div>
 {% else %}
 <div class="alert alert-warning text-center" role="alert">
@@ -110,7 +110,7 @@
         {% include "layouts/ads_boom_your_identity.html" %}
     </div>
 </div>
-{% include "layouts/ads_display.html" %}
+
 {% endif %}
 
 <h2 class="pb-2 border-bottom border-3 border-primary text-danger">This url have below malicious report record:</h2>
@@ -133,7 +133,7 @@
             <span class="d-block">by_{{report.user.username}}</span>
         </div>
     </div>
-    {% include "layouts/ads_infeed.html" %}
+
     {% endfor %}
     <small class="d-block text-end mt-3">
         <a href="{% url 'selfurl:allreport' short_url %}">See All {{reports.count}} reports</a>
@@ -146,7 +146,7 @@
         {% include "layouts/ads_boom_your_identity.html" %}
     </div>
 </div>
-{% include "layouts/ads_display.html" %}
+
 {% endif %}
 
 
