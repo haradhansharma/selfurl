@@ -16,44 +16,44 @@ class SelfurlSitemap(sitemaps.Sitemap):
     def location(self, item):
         return reverse(item)      
     
-class UserSitemap(sitemaps.Sitemap):
-    changefreq = "daily"
-    priority = 0.8    
+# class UserSitemap(sitemaps.Sitemap):
+#     changefreq = "daily"
+#     priority = 0.8    
 
-    def items(self):
-        return User.objects.all().order_by('-date_joined')
+#     def items(self):
+#         return User.objects.all().order_by('-date_joined')
     
-    def lastmod(self, obj):
-        return obj.date_joined
+#     def lastmod(self, obj):
+#         return obj.date_joined
         
-    def location(self, obj):
-        return "/accounts/%s"  % (obj.username)
+#     def location(self, obj):
+#         return "/accounts/%s"  % (obj.username)
     
-class UrlLogsSitemap(sitemaps.Sitemap):
-    changefreq = "daily"
-    priority = 0.8    
+# class UrlLogsSitemap(sitemaps.Sitemap):
+#     changefreq = "daily"
+#     priority = 0.8    
 
-    def items(self):
-        return Shortener.objects.filter(active = True).order_by('-updated')  
+#     def items(self):
+#         return Shortener.objects.filter(active = True).order_by('-updated')  
     
-    def lastmod(self, obj):
-        return obj.created
+#     def lastmod(self, obj):
+#         return obj.created
         
-    def location(self, obj):
-        return "/logs/%s"  % (obj.short_url)
+#     def location(self, obj):
+#         return "/logs/%s"  % (obj.short_url)
     
-class UrlSitemap(sitemaps.Sitemap):
-    changefreq = "daily"
-    priority = 0.8    
+# class UrlSitemap(sitemaps.Sitemap):
+#     changefreq = "daily"
+#     priority = 0.8    
 
-    def items(self):
-        return Shortener.objects.filter(creator__isnull = True, active = True).order_by('-updated')   
+#     def items(self):
+#         return Shortener.objects.filter(creator__isnull = True, active = True).order_by('-updated')   
     
-    def lastmod(self, obj):
-        return obj.created
+#     def lastmod(self, obj):
+#         return obj.created
         
-    def location(self, obj):
-        return "/%s"  % (obj.short_url)
+#     def location(self, obj):
+#         return "/%s"  % (obj.short_url)
     
     
 
