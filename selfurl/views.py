@@ -238,10 +238,13 @@ def redirect_url(request, short_url):
          
         if creator:
             need_to_login = creator.last_login + timezone.timedelta(days=settings.LOGIN_REQUIRE_WITHIN_DAYS)
-            if  CURRENT_DATE_TIME <=  need_to_login and not request.user_agent.is_bot: 
-                return HttpResponseRedirect(redirect_to) 
+            if request.user_agent.is_bot:
+                if  CURRENT_DATE_TIME <=  need_to_login: 
+                    return HttpResponseRedirect(redirect_to) 
+                else:
+                    return HttpResponse({f'Your las login is {creator.last_login }, You supposed to login before {need_to_login} to get uninterepted service!'})
             else:
-                return HttpResponse({f'Your las login is {creator.last_login }, You supposed to login before {need_to_login} to get uninterepted service!'})
+                return HttpResponseRedirect(redirect_to) 
             
             
                        
