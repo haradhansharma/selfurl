@@ -15,55 +15,61 @@
 
 <div class="row justify-content-center">
     <div class="col-lg-6 text-start align-center">
-        {% if messages %}                                                     
-            {% for message in messages %}
-           <em class="text-danger ">{{ message }}</em> 
-            {% endfor %}   
-        {% else %} 
-        {% endif %}  
+        {% if messages %}
+        {% for message in messages %}
+        <em class="text-danger ">{{ message }}</em>
+        {% endfor %}
+        {% else %}
+        {% endif %}
     </div>
 </div>
 
 
-<div class="my-3 p-3 bg-body rounded shadow-sm">
+<div class="my-3 p-3 bg-body card">
     <div class="text-center align-items-center justify-content-center border-bottom">
         <h1 class="text-danger ">{{meta_data.title}}</h1>
-        
+
         <p class="text-primary ">{{meta_data.body}}</p>
-        {% include "layouts/ads_display.html" %}
+        {# {% include "layouts/ads_display.html" %} #}
     </div>
     <div class="d-flex align-items-center justify-content-center">
         <div class="col-lg-6">
             <div class="mt-2">
-                {% include "layouts/ads_boom_your_identity.html" %}
+                {# {% include "layouts/ads_boom_your_identity.html" %} #}
             </div>
-    {% for item in items %}    
-    <div class="d-flex text-muted pt-3">
-        <div class="bg-primary p-3 text-white text-center">
-            {{item.times_followed}} <br> <small>Views</small> 
+            {% for item in items %}
+            <div class="d-flex text-muted p-3">
+                <div class="bg-primary p-3 text-white text-center">
+                    {{item.times_followed}} <br> <small>Views</small>
+                </div>
+                <div
+                    class="pb-0 mb-0 small lh-sm border-bottom align-items-center justify-content-center d-block my-auto">
+                    <div>
+                        <strong class="d-block text-gray-dark">
+                            <a class="text-primary mb-0" href="/{{item.short_url}}"
+                                target="_blank">{{site.domain}}/{{item.short_url}}</a>
+                        </strong>
+                    </div>
+                    <div class="py-2">
+                        Created On__{{item.created}}
+                        <span
+                            class=" mb-0 {% if item.active == True  %}  text-success {% else %} text-danger {% endif %} ">Active__{{item.active}}</span>
+                    </div>
+                    <div class="card-footer text-strat ps-0">
+                        {{item.long_url|truncatechars:30}}
+                    </div>
+                    <div class="justify-content-end align-items-end text-end mt-2 mb-1">
+                        <a class="badge btn-danger" href="{% url 'selfurl:log_details' item.short_url  %}">Visitor's
+                            Logs </a>
+                    </div>
+                </div>
+            </div>
+            {# {% include "layouts/ads_infeed.html" %} #}
+            {% endfor %}
         </div>
-        <div class="pb-3 mb-0 small lh-sm border-bottom align-items-center justify-content-center d-block my-auto">
-            <div>
-                <strong class="d-block text-gray-dark">
-                    <a class="text-primary mb-0" href="/{{item.short_url}}" target="_blank">{{site.domain}}/{{item.short_url}}</a>
-                </strong>
-            </div>
-            <div> 
-                Created On__{{item.created}} 
-                <span class=" mb-0 {% if item.active == True  %}  text-success {% else %} text-danger {% endif %} ">Active__{{item.active}}</span>
-            </div>
-            <div class="justify-content-end align-items-end text-end">
-                <a class="badge btn-danger" href="{% url 'selfurl:log_details' item.short_url  %}">Visitor's Logs </a>  
-            </div>            
-        </div>          
-    </div>
-    {% include "layouts/ads_infeed.html" %}
-    {% endfor %}
-    </div>
-    <div class="col-lg-6">
-        {% include "layouts/ads_multiplex.html" %}
-
-    </div>
+        <div class="col-lg-6">
+            {# {% include "layouts/ads_multiplex.html" %} #}
+        </div>
     </div>
 
     <div class="d-flex align-items-end justify-content-end">
@@ -92,7 +98,7 @@
             </div>
         </small>
     </div>
-    {% include "layouts/ads_display.html" %}
+    {# {% include "layouts/ads_display.html" %} #}
 </div>
 
 {% endblock %}

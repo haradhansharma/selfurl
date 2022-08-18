@@ -10,7 +10,7 @@
     <img class="d-block mx-auto mb-4" src="{% static  site.favicon %}" alt="{{site.name}}" width="72" height="72">
     <h1 class="display-5 fw-bold text-primary">{{meta_data.title|safe}}</h1>
     <div class="mt-2">
-        {% include "layouts/ads_boom_your_identity.html" %}
+        {# {% include "layouts/ads_boom_your_identity.html" %} #}
     </div>
     <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">{{meta_data.description|safe}}.</p>
@@ -29,7 +29,7 @@
                 </div>
                 <p>You can copy the link and share it with your friends</p>
             </div>
-            {% include "layouts/ads_display.html" %}
+            {# {% include "layouts/ads_display.html" %} #}
             <!-- Go to www.addthis.com/dashboard to customize your tools -->
             <p class="mt-2"> OR <span class="text-danger">Share directly to:</span> </p>
             <div class="addthis_inline_share_toolbox_spsh mt-2"></div>
@@ -56,7 +56,7 @@
             </div> 
 
 
-            {% include "layouts/ads_display.html" %}
+            {# {% include "layouts/ads_display.html" %} #}
             {% endif %}
         </div>
     </div>
@@ -71,7 +71,7 @@
     </div>
 </div>
 
-{% include "layouts/ads_inarticle.html" %}
+{# {% include "layouts/ads_inarticle.html" %} #}
 
 <div class="border-bottom mb-5">
     <h2 class="pb-2 border-bottom border-3 border-primary text-danger">What Solutions We Provide</h2>

@@ -6,7 +6,7 @@
 {% block content %}
 
 <div class="row justify-content-center">
-    {% include "layouts/ads_display.html" %} 
+    {# {% include "layouts/ads_display.html" %}  #}
     {% if messages %}
     <div class="col-12 text-center">
         <div class="alert alert-secondary shadow-soft" role="alert">
@@ -15,7 +15,7 @@
             {% endfor %}
         </div>
     </div>
-    {% include "layouts/ads_display.html" %} 
+    {# {% include "layouts/ads_display.html" %}  #}
     {% endif %}
     <h2 class="pb-2 border-bottom border-3 border-primary text-danger">{{site.slogan}}</h2>
     <div class="col-lg-12">
@@ -27,5 +27,5 @@
     </div>
 </div>
 
-{% include "layouts/ads_display.html" %} 
+{# {% include "layouts/ads_display.html" %}  #}
 {% endblock %}

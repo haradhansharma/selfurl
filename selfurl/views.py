@@ -151,43 +151,31 @@ def get_ip(request):
     return ip
 #helper function
 def get_agent(request):
-    from django_user_agents.utils import get_user_agent
-    user_agent = get_user_agent(request)
+    
     
     results = {}
         
-    if user_agent.is_mobile:
+    if request.user_agent.is_mobile:
         user_usage = 'Mobile'        
-    elif user_agent.is_tablet:
+    elif request.user_agent.is_tablet:
         user_usage = 'Tablet'    
-    elif user_agent.is_touch_capable:
+    elif request.user_agent.is_touch_capable:
         user_usage = 'Touch Capable'
-    elif user_agent.is_pc :
+    elif request.user_agent.is_pc :
         user_usage = 'PC'
-    elif user_agent.is_bot :
+    elif request.user_agent.is_bot :
         user_usage = 'BOT'
     else:
         user_usage = 'Not able to figur out'        
     
     data = {
-        'user_usage' : user_usage        
+        'user_usage' : user_usage ,
+        'user_browser' : request.user_agent.browser  ,
+        'user_os' : request.user_agent.os ,
+        'user_device' : request.user_agent.device          
     }    
     results.update(data)
     
-    data = {
-        'user_browser' : request.user_agent.browser        
-    }    
-    results.update(data)
-    
-    data = {
-        'user_os' : request.user_agent.os       
-    }    
-    results.update(data)
-    
-    data = {
-        'user_device' : request.user_agent.device      
-    }    
-    results.update(data)
     
     return results
     
@@ -213,6 +201,10 @@ def get_geodata(request):
 
 
 def redirect_url(request, short_url):
+    from django_user_agents.utils import get_user_agent
+    user_agent = get_user_agent(request)
+    
+    
     full_url = request.build_absolute_uri()
     parser_full = urlparse(full_url)    
     
@@ -242,19 +234,18 @@ def redirect_url(request, short_url):
             parts = (long_parse.scheme, long_parse.netloc, long_parse.path, parser_full.params, parser_full.query, parser_full.fragment, )
             redirect_to = urlunparse(parts)
         else:
-            redirect_to = shortener.long_url     
-               
+            redirect_to = shortener.long_url 
+         
         if creator:
             need_to_login = creator.last_login + timezone.timedelta(days=settings.LOGIN_REQUIRE_WITHIN_DAYS)
-            if  CURRENT_DATE_TIME <=  need_to_login: 
+            if  CURRENT_DATE_TIME <=  need_to_login and not request.user_agent.is_bot: 
                 return HttpResponseRedirect(redirect_to) 
             else:
                 return HttpResponse({f'Your las login is {creator.last_login }, You supposed to login before {need_to_login} to get uninterepted service!'})
-                 
             
             
                        
-    except Exception as e:        
+    except Exception as e:          
         raise Http404('Sorry this link is broken :(')
     
     title = f'{short_url}...........'
