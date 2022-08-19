@@ -11,8 +11,11 @@ class SelfurlSitemap(sitemaps.Sitemap):
     changefreq = 'monthly'
 
     def items(self):
-        return ['accounts:signup', 'accounts:login', 'accounts:change_pass', 'accounts:password_reset_done','accounts:password_reset','accounts:password_reset_complete','contact:contact','doc:terms_and_conditions', 'doc:privacy_policy', 'selfurl:index','selfurl:report_malicious','selfurl:statistics', ] 
+        # return ['accounts:signup', 'accounts:login', 'accounts:change_pass', 'accounts:password_reset_done','accounts:password_reset','accounts:password_reset_complete','contact:contact','doc:terms_and_conditions', 'doc:privacy_policy', 'selfurl:index','selfurl:report_malicious','selfurl:statistics', ] 
+        return ['contact:contact','doc:terms_and_conditions', 'doc:privacy_policy', 'selfurl:index', ] 
 
+        
+        
     def location(self, item):
         return reverse(item)      
     

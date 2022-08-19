@@ -3,6 +3,9 @@ from django.urls import path
 from . import views
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import *
+from django.views.generic.base import TemplateView
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 '''
@@ -28,7 +31,8 @@ urlpatterns = [
     path('su/report-malicious/', views.report_malicious, name='report_malicious'),
     path('su/statistics/', views.statistics, name='statistics'),    
     path('su/sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),   
-]
+    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name='robot'),
+] 
 
 def get_self_urls():        
         url_list = []
