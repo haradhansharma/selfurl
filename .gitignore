@@ -12,3 +12,4 @@ config/settings.py
 static/assets/scss
 static/assets/gulpfile.js
 static/assets/package.json
+static/CACHE
