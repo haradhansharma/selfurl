@@ -1,7 +1,8 @@
 {% load static %}
 {% load compress %}
-<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
 {% compress js %}
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 {% endcompress %}
 <script>
