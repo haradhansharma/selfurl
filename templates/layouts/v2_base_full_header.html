@@ -9,7 +9,7 @@
             <a href="{{path}}" class="nav-link link-warning {% if  request.path == path %} active {% endif %} ">{{ name }}</a>
             {% endfor %}
 
-            <a href="https://selfurl.xyz/bnhnaqixfo" target="_blank" class="nav-link link-warning {% if  request.path == path %} active {% endif %} ">Secure Digital Life</a>
+            <a href="https://selfurl.xyz/bnhnaqixfo" target="_blank" rel="noreferrer" class="nav-link link-warning {% if  request.path == path %} active {% endif %} ">Secure Digital Life</a>
 
             <div class="nav-link link-warning dropdown">
                 {% if user.is_authenticated %}
