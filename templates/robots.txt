@@ -1,6 +1,8 @@
 User-Agent: *
 Disallow: /admin/
 Disallow: /config/
+Disallow: /accounts/login/?next=/su/report-malicious/
+Disallow: /nzihomtahj
 
 
 Sitemap: https://selfurl.xyz/su/sitemap.xml
