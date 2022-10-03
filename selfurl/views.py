@@ -350,9 +350,6 @@ def allreport(request, short_url):
         'site' : seo_info ,
         'reports' : reports,
         'created_since' : created_since
-          
-        
-                
             }
     
     
