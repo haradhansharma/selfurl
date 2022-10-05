@@ -13,6 +13,7 @@ Disallow: /accounts/password_reset/
 Disallow: /accounts/password_reset/done/
 Disallow: /accounts/reset/done/
 Disallow: /accounts/change_pass/
+Disallow: /accounts/logout/
 
 
 
