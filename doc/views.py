@@ -3,28 +3,29 @@ from django.shortcuts import render
 from django.urls import reverse
 from doc.models import ExSite
 from doc.doc_processor import site_info
+from django.templatetags.static import static
 
 
 
 def webmanifest(request):
-    site = ExSite.on_site.get()    
+    site = site_info()      
     icons = []    
     ic192 = {
-        "src": site.og_image.url,
+        "src": static(site['og_image']),
         "sizes": "192x192",
         "type": "image/png"        
     }
     
     icons.append(ic192)   
     ic512 = {
-        "src": site.og_image.url,
+        "src": static(site['og_image']),
         "sizes": "512x512",
         "type": "image/png"        
     }
     icons.append(ic512)    
-    site_info = {
-        'name' : site.site.name,
-        'short_name' : site.site.name,
+    data = {
+        'name' : site['name'],
+        'short_name' : site['name'],
         'icons' : icons,
         # 'meta_name': site.site_meta,
         # 'description': site.site_description,
@@ -44,7 +45,7 @@ def webmanifest(request):
         "display": "standalone"        
     }
     
-    return JsonResponse(site_info, safe=False)
+    return JsonResponse(data, safe=False)
 
 def terms_and_conditions(request):
     from doc.models import MetaText, Acordion

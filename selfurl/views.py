@@ -39,6 +39,7 @@ def check_exists(short_url):
     
 
 def index(request):   
+    print(request.COOKIES)
     from doc.models import MetaText, Acordion
     meta_data = MetaText.objects.get(path='selfurl:index')   
     title = meta_data.title
