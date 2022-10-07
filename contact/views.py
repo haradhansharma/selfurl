@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render
 
 from selfurl.decorators import coockie_required
@@ -41,15 +42,15 @@ def contact(request):
             to_name = form.cleaned_data['name']
             
             subject = 'We recived Your mail!'                
-            message = 'Dear '+ to_name + '\n\n' + 'We have recived your message and will get back to you soon! \n\n' + 'Thank you for reachout.'   + '\n\n' + 'Best regards \n\n' + param.site.domain 
+            message = 'Dear '+ to_name + '\n\n' + 'We have recived your message and will get back to you soon! \n\n' + 'Thank you for reaching out.'   + '\n\n' + 'Best regards \n\n' + param.site.domain 
              
             # to admin mail           
-            form_subject = f'{param.site.domain }-- Contact' + ' "' +  form.cleaned_data['subject'] +'"'                      
+            form_subject = f'{param.site.domain}--Contact:' + ' "' +  form.cleaned_data['subject'] +'"'                      
             form_message = form.cleaned_data['message'] 
             
             mail_list = [
-                (subject, message, '', [to_email]) ,
-                (form_subject, form_message, '', [param.email]) 
+                (subject, message, settings.DEFAULT_FROM_EMAIL, [to_email]) ,
+                (form_subject, form_message, settings.DEFAULT_FROM_EMAIL, [settings.DEFAULT_FROM_EMAIL]) 
                 ]
             
             send_mass_mail((mail_list), fail_silently=False) 
