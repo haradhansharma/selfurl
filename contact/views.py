@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from selfurl.decorators import coockie_required
 from . forms import ContactForm
 # from doc.models import ExSite
 from django.core.mail import BadHeaderError
@@ -9,7 +11,7 @@ from django.core.mail import send_mass_mail
 from doc.doc_processor import site_info
 from django.urls import reverse
 
-
+@coockie_required
 def contact(request):    
     from doc.models import ExSite 
     
@@ -26,10 +28,7 @@ def contact(request):
         'description': description,        
         'slogan': title,              
     }    
-    seo_info.update(modify)   
-    
-    
-    
+    seo_info.update(modify)     
      
     if request.method == "POST":              
         form = ContactForm(request.POST)         

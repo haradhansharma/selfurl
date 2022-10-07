@@ -1,3 +1,6 @@
+{% include "layouts/coockie_modal.html" %}
+
+
 <footer class="mt-auto text-white-50">
     <div class="row text-center align-items-center justify-content-center mb-4">
         <div class="footer-menu">            
@@ -9,3 +12,12 @@
     </div>
     <p>&copy; All Right Reserved By <a href="https://selfurl.xyz/" class="text-white">{{site.domain}}</a>, Developed by <a href="https://hrdnsh.com" target="_blank" rel="noreferrer"  class="text-white">Haradhan Sharma</a>.</p>
 </footer> 
+<script>
+    document.body.addEventListener('htmx:configRequest', (e) => {
+        e.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        })
+</script>
+<script>
+    let accepted;
+    accepted = '{{ request.session.term_accepted }}';
+  </script>

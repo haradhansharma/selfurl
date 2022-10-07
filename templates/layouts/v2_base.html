@@ -54,7 +54,14 @@
 <link type="text/css" rel="nofollow" href="{% static 'css/main.css' %}" rel="stylesheet">
 <link type="text/css" rel="nofollow" href="{% static 'css/custom.css' %}" rel="stylesheet">
 {% endcompress %}
+
+
+{% compress js %}
 <script src="{% static 'vendor/htmx/htmx.min.js' %}" ></script>
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% endcompress %}
 
 
 

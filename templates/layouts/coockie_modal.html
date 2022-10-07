@@ -1,0 +1,19 @@
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content text-dark">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Policy Alert</h1>
+          
+        </div>
+        <div class="modal-body" >
+            We use cookies and other tracking technologies to improve your browsing experience on our website, to show you personalized content 
+            and targeted ads, to analyze our website traffic, and to understand where our visitors are coming from. By using our site you are agree to 
+            the <a target="_blank" href="{% url 'doc:terms_and_conditions' %}">Terms and coditions</a> and <a target="_blank" href="{% url 'doc:privacy_policy' %}">Privacy Policy</a>            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" hx-get="{{ request.path }}" hx-vals='{"term_accepted": "True"}' hx-swap = "none" data-bs-dismiss="modal">Accept</button>
+        </div>
+      </div>
+    </div>
+  </div>

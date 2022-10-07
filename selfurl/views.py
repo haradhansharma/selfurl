@@ -10,6 +10,7 @@ from doc.doc_processor import site_info
 import requests
 import json
 import selfurl
+from selfurl.decorators import coockie_exempts, coockie_required
 from .forms import ShortenerForm, CheckingForm
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .models import Shortener, VisitorLog, ReportMalicious
@@ -21,12 +22,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.safestring import mark_safe
 import arrow
 
-
 CURRENT_DATE_TIME = timezone.now()
 
 '''helper function'''
 def random_digits():
     return "%0.3d" % random.randint(0, 999)
+
 '''helper function'''
 def check_exists(short_url):
     #make unique
@@ -37,9 +38,8 @@ def check_exists(short_url):
     except:
         return short_url
     
-
+@coockie_required
 def index(request):   
-    print(request.COOKIES)
     from doc.models import MetaText, Acordion
     meta_data = MetaText.objects.get(path='selfurl:index')   
     title = meta_data.title
@@ -49,8 +49,7 @@ def index(request):
     modify = {
         'canonical' : request.build_absolute_uri(reverse('selfurl:index')),
         'description': description,        
-        'slogan': title, #it will work as a title as well.
-             
+        'slogan': title, 
     }    
     seo_info.update(modify)  
     
@@ -86,8 +85,7 @@ def index(request):
                 if request.user.is_authenticated:
                     data = Shortener.objects.get(long_url = long_url, creator = request.user)
                 else:
-                    data = Shortener.objects.get(long_url = long_url, creator = None)
-                    
+                    data = Shortener.objects.get(long_url = long_url, creator = None)                    
                      
                 context = {            
                     'data': data,
@@ -101,12 +99,28 @@ def index(request):
                 user_agent = get_agent(request)       
                 geodata = get_geodata(request)     
                 if request.user.is_authenticated:
-                    new_url = Shortener(long_url=long_url, short_url=check_exists(short_url), creator = request.user, ip = get_ip(request), user_agent = user_agent, country = geodata.get('country_code'),  lat = geodata.get('latitude'), long =  geodata.get('longitude'))
+                    new_url = Shortener(
+                        long_url=long_url, 
+                        short_url=check_exists(short_url), 
+                        creator = request.user, 
+                        ip = get_ip(request), 
+                        user_agent = user_agent, 
+                        country = geodata.get('country_code'),  
+                        lat = geodata.get('latitude'), 
+                        long =  geodata.get('longitude')
+                        )
                 else:
-                    new_url = Shortener(long_url=long_url, short_url=check_exists(short_url), creator = None, ip = get_ip(request), user_agent = user_agent, country = geodata.get('country_code'),  lat = geodata.get('latitude'), long =  geodata.get('longitude'))                    
+                    new_url = Shortener(
+                        long_url=long_url, 
+                        short_url=check_exists(short_url), 
+                        creator = None, ip = get_ip(request), 
+                        user_agent = user_agent, 
+                        country = geodata.get('country_code'),  
+                        lat = geodata.get('latitude'), 
+                        long =  geodata.get('longitude')
+                        )                    
                 new_url.save()   
-                data = new_url  
-                
+                data = new_url                  
                           
                 context = {            
                     'data': data,
@@ -119,6 +133,7 @@ def index(request):
         else:
             messages.error(request, 'Invalid form submission.')
             messages.error(request, form.errors)   
+            
     context = {
         'form': form,
         'meta_data' : meta_data ,
@@ -129,6 +144,7 @@ def index(request):
 
 #helper functions
 def get_ip(request):
+    
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:        
         ip = x_forwarded_for.split(',')[-1].strip()    
@@ -150,12 +166,11 @@ def get_ip(request):
         ip = request.META.get('REMOTE_ADDR')
         
     return ip
+
 #helper function
-def get_agent(request):
+def get_agent(request):   
     
-    
-    results = {}
-        
+    results = {}        
     if request.user_agent.is_mobile:
         user_usage = 'Mobile'        
     elif request.user_agent.is_tablet:
@@ -181,12 +196,9 @@ def get_agent(request):
     return results
     
     
-    
-    
-    
-    
 #helper function
 def get_geodata(request): 
+    
     ip_address = get_ip(request)
     # URL to send the request to
     request_url = 'https://geolocation-db.com/jsonp/' + ip_address
@@ -200,15 +212,14 @@ def get_geodata(request):
     return result
     
 
-
+@coockie_exempts
 def redirect_url(request, short_url):
-    from django_user_agents.utils import get_user_agent
-    user_agent = get_user_agent(request)
     
+    from django_user_agents.utils import get_user_agent
+    user_agent = get_user_agent(request) 
     
     full_url = request.build_absolute_uri()
-    parser_full = urlparse(full_url)    
-    
+    parser_full = urlparse(full_url)        
     
     url = ''   
     try:        
@@ -246,14 +257,16 @@ def redirect_url(request, short_url):
                     return HttpResponse({f'Your las login is {creator.last_login }, You supposed to login before {need_to_login} to get uninterepted service!'})
             else:
                 return HttpResponseRedirect(redirect_to) 
-            
-            
                        
     except Exception as e:          
         raise Http404('Sorry this link is broken :(')
     
     title = f'{short_url}...........'
-    description = 'Since destination was created by an unregistered user, so we are providing creator information that it is created from ip address: {}, country: {}, lat: {}, long: {} . You need to click on the button below to reach the destination. If you think it has been used for some malicious purpose, let us know by clicking the <a class="text-danger" target="_blank" href = "{}">Report Malicious</a>. We will take action!'.format(shortener.ip, shortener.country, shortener.lat, shortener.long, reverse('selfurl:report_malicious') ) 
+    description = 'Since destination was created by an unregistered user, so we are n\
+        providing creator information that it is created from ip address: {}, country: {}, lat: {}, long: {} . n\
+            You need to click on the button below to reach the destination. If you think it has been used for some n\
+                malicious purpose, let us know by clicking the <a class="text-danger" target="_blank" n\
+                    href = "{}">Report Malicious</a>. We will take action!'.format(shortener.ip, shortener.country, shortener.lat, shortener.long, reverse('selfurl:report_malicious') ) 
     
     seo_info = site_info()  
     modify = {
@@ -261,8 +274,7 @@ def redirect_url(request, short_url):
         'description': description,        
         'slogan': title, #it will work as a title as well.             
     }    
-    seo_info.update(modify) 
-     
+    seo_info.update(modify)      
     
     context = {
         'redirecting' : f'Click To got to',
@@ -272,7 +284,7 @@ def redirect_url(request, short_url):
             }
     return render(request, 'selfurl/redirecting.html', context = context)
 
-   
+@coockie_exempts
 @login_required
 def report_malicious(request):   
     
@@ -287,8 +299,7 @@ def report_malicious(request):
         'description': description,        
         'slogan': title, #it will work as a title as well.             
     }    
-    seo_info.update(modify)  
-    
+    seo_info.update(modify)      
     
     form = CheckingForm()        
     if request.method == 'POST':        
@@ -311,8 +322,7 @@ def report_malicious(request):
                 messages.warning(request, f'This url not found in our record!')
         else:
             messages.error(request, 'Invalid form submission.')
-            messages.error(request, form.errors)    
-                
+            messages.error(request, form.errors)                    
     
     context = {
         'meta_data' : meta_data ,
@@ -323,8 +333,10 @@ def report_malicious(request):
             }
     return render(request, 'selfurl/report_melicious.html', context = context)
 
+@coockie_exempts
 @login_required
 def allreport(request, short_url):
+    
     reports = ReportMalicious.objects.filter(url = Shortener.objects.get(short_url = short_url)).order_by('created')
     created_since = arrow.get((reports.first()).created).humanize()
     page = request.GET.get('page', 1)
@@ -334,15 +346,13 @@ def allreport(request, short_url):
     except PageNotAnInteger:
         reports = paginator.page(1)
     except EmptyPage:
-        reports = paginator.page(paginator.num_pages)
-    
+        reports = paginator.page(paginator.num_pages)    
     
     seo_info = site_info() 
     modify = {
         'canonical' : request.build_absolute_uri(reverse('selfurl:allreport', args=[str(short_url)])),
         'description': "All reports submitted for this short URL as malicious are listed here.",  
-        'slogan': f"All Reports of URL",   
-                  
+        'slogan': f"All Reports of URL", 
     }    
     seo_info.update(modify)  
     
@@ -352,10 +362,9 @@ def allreport(request, short_url):
         'reports' : reports,
         'created_since' : created_since
             }
-    
-    
     return render(request, 'selfurl/allreport.html', context=context)
 
+@coockie_exempts
 @login_required
 def statistics(request):
     
@@ -368,16 +377,13 @@ def statistics(request):
     modify = {
         'canonical' : request.build_absolute_uri(reverse('selfurl:statistics')),
         'description': description,        
-        'slogan': title, #it will work as a title as well.             
+        'slogan': title,             
     }    
     seo_info.update(modify)  
     
-    items = Shortener.objects.filter(creator = request.user).order_by('created')  
-    # print((items.first()).created)
+    items = Shortener.objects.filter(creator = request.user).order_by('created')      
     
-    created_since = arrow.get((items.first()).created).humanize()
-    
-    
+    created_since = arrow.get((items.first()).created).humanize()     
     
     #Paginated response
     page = request.GET.get('page', 1)
@@ -387,9 +393,7 @@ def statistics(request):
     except PageNotAnInteger:
         items = paginator.page(1)
     except EmptyPage:
-        items = paginator.page(paginator.num_pages)
-    
-    
+        items = paginator.page(paginator.num_pages)        
     
     context = {                
         'items' : items ,
@@ -401,7 +405,7 @@ def statistics(request):
     return render(request, 'selfurl/statistics.html', context = context)
 
 
-
+@coockie_exempts
 @login_required
 def log_details(request, short_url):
     seo_info = site_info() 
@@ -427,8 +431,7 @@ def log_details(request, short_url):
         # Every time someone clicks on your short URL, our technology will keep track. It doesn't matter if it came from the same device or from the same person.
         # Visitor Logs of shorten URL-
     
-    context = {     
-        
+    context = {             
         'site' : seo_info ,                  
         'visit_logs' : visit_logs ,
         'short_url' : short_url,
@@ -437,7 +440,8 @@ def log_details(request, short_url):
             }
     return render(request, 'selfurl/log_details.html', context = context)
     
-
+@coockie_exempts
+@login_required
 def dispute_report(request):
     '''
     we will take dispute against reported url.

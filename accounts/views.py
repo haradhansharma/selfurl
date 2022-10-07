@@ -1,6 +1,8 @@
 from django.contrib import messages
 from urllib.parse import urlparse
 from django.http import Http404, HttpResponseRedirect
+
+from selfurl.decorators import coockie_exempts, coockie_required
 from .models import *
 from .forms import UserCreationFormFront, PasswordChangeForm, UserForm, ProfileForm
 from django.urls import reverse_lazy
@@ -16,11 +18,11 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from doc.doc_processor import site_info
 from django.contrib.auth import update_session_auth_hash
+from django.utils.decorators import method_decorator
 
-
+@coockie_exempts
 @login_required
 def profile_setting(request, username): 
-    
     
     title = username
     description = 'You can manage your personal information here.'
@@ -65,7 +67,7 @@ def profile_setting(request, username):
     }
     return render(request, 'registration/profile_settings.html', context = context)
 
-@login_required
+@coockie_exempts
 def password_change(request): 
     
     
@@ -82,9 +84,6 @@ def password_change(request):
         'slogan': title,              
     }    
     seo_info.update(modify)   
-    
-    
-    
     
     if request.method == "POST":        
         password_form = PasswordChangeForm(user=request.user, data=request.POST)        
@@ -106,7 +105,10 @@ def password_change(request):
     }
     return render(request, 'registration/change_pass.html', context = context)
 
+@method_decorator(coockie_exempts, name='dispatch')
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    
+   
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
@@ -131,13 +133,14 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
         context['site'] = seo_info
         
         return context
-
+    
+@method_decorator(coockie_exempts, name='dispatch')
 class CustomPasswordResetView(PasswordResetView):
     from .forms import PasswordResetForm
     
     #overwriting form class to take control over default django
     form_class = PasswordResetForm
-    
+   
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
@@ -163,12 +166,13 @@ class CustomPasswordResetView(PasswordResetView):
         
         return context
     
+@method_decorator(coockie_exempts, name='dispatch')    
 class CustomPasswordResetDoneView(PasswordResetDoneView):
+    
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        
+        # Add in a QuerySet of all the books       
         
         from doc.models import MetaText, Acordion
     
@@ -189,6 +193,7 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
         
         return context
     
+@method_decorator(coockie_exempts, name='dispatch')   
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     from .forms import SetPasswordForm
     
@@ -199,9 +204,7 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
         
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        
-        
+        # Add in a QuerySet of all the books  
         
         from doc.models import MetaText, Acordion
     
@@ -224,7 +227,7 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 
     
 
-
+@method_decorator(coockie_exempts, name='dispatch')
 class CustomLoginView(LoginView):
     #To avoid circular reference it is need to import here
     from .forms import LoginForm
@@ -236,6 +239,7 @@ class CustomLoginView(LoginView):
     #overwriting to set custom after login path
     next_page = ''
     
+    
     #taking control over default of Django  
     def form_valid(self, form): 
         
@@ -243,7 +247,10 @@ class CustomLoginView(LoginView):
         self.next_page = reverse_lazy('accounts:profile_setting', args=[str(form.get_user().username)])           
         
         #rememberme section        
-        remember_me = form.cleaned_data.get('remember_me')     
+        remember_me = form.cleaned_data.get('remember_me')  
+        # as during signup user need to accept our policy so we can set term accepted 
+        self.request.session['term_accepted'] = True   
+        
         if not remember_me:
             # set session expiry to 0 seconds. So it will automatically close the session after the browser is closed.
             self.request.session.set_expiry(0)
@@ -253,7 +260,9 @@ class CustomLoginView(LoginView):
         # else browser session will be as long as the session cookie time "SESSION_COOKIE_AGE" defined in settings.py
         return super(CustomLoginView, self).form_valid(form)
     
-    def get_context_data(self, **kwargs):
+    
+    def get_context_data(self,  **kwargs):
+        
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
@@ -280,13 +289,8 @@ class CustomLoginView(LoginView):
 
 
 
-
-def signup(request): 
-    
- 
-    
-    
-    
+@coockie_required
+def signup(request):    
     
     from doc.models import MetaText, Acordion
     
@@ -335,6 +339,7 @@ def signup(request):
     }
     return render(request, 'registration/register.html', context = context) 
 
+@coockie_exempts
 def activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))

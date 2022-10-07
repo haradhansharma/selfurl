@@ -5,8 +5,10 @@ from doc.models import ExSite
 from doc.doc_processor import site_info
 from django.templatetags.static import static
 
+from selfurl.decorators import coockie_exempts
 
 
+@coockie_exempts
 def webmanifest(request):
     site = site_info()      
     icons = []    
@@ -47,6 +49,7 @@ def webmanifest(request):
     
     return JsonResponse(data, safe=False)
 
+@coockie_exempts
 def terms_and_conditions(request):
     from doc.models import MetaText, Acordion
     meta_data = MetaText.objects.get(path='doc:terms_and_conditions')   
@@ -57,8 +60,7 @@ def terms_and_conditions(request):
     modify = {
         'canonical' : request.build_absolute_uri(reverse('doc:terms_and_conditions')),
         'description': description,        
-        'slogan': title, #it will work as a title as well.
-             
+        'slogan': title, 
     }    
     seo_info.update(modify)  
     context = {
@@ -68,6 +70,7 @@ def terms_and_conditions(request):
     }
     return render(request, 'doc/terms.html', context = context)
 
+@coockie_exempts
 def privacy_policy(request):
     from doc.models import MetaText, Acordion
     meta_data = MetaText.objects.get(path='doc:privacy_policy')   
@@ -78,8 +81,7 @@ def privacy_policy(request):
     modify = {
         'canonical' : request.build_absolute_uri(reverse('doc:privacy_policy')),
         'description': description,        
-        'slogan': title, #it will work as a title as well.
-             
+        'slogan': title, 
     }    
     seo_info.update(modify)  
     context = {
