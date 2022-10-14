@@ -21,7 +21,7 @@
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="col-auto me-2">
                         <input id="urlresult" class="form-control" type="text"
-                            value="{{request.build_absolute_uri}}{{data.short_url}}">
+                            value="{{site.domain}}/{{data.short_url}}">
                     </div>
                     <div class="col-auto">
                         <button onclick="copy()" class="btn btn-primary">Copy</button>
