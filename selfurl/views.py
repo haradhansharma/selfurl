@@ -26,7 +26,7 @@ CURRENT_DATE_TIME = timezone.now()
 
 '''helper function'''
 def random_digits():
-    return "%0.3d" % random.randint(0, 999)
+    return "%0.3d" % random.randint(0, 99)
 
 '''helper function'''
 def check_exists(short_url):
@@ -59,7 +59,7 @@ def index(request):
     if request.method == 'POST':
         form = ShortenerForm(request.POST)
         if form.is_valid():
-            short_url = ''.join(random.choice(string.ascii_letters) for x in range(10))                    
+            short_url = ''.join(random.choice(string.ascii_letters) for x in range(6))                    
             long_url = form.cleaned_data["long_url"]
             
             short_url = check_exists(short_url)
