@@ -14,7 +14,7 @@ DO NOT FORGET TO MAKE MIGRATION AFTER ADDING PATH! IT IS IMPORTNT!
 =====
 '''
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('su/admin/', admin.site.urls),
     path('', include('selfurl.urls')),
     path('', include('contact.urls')),
     path('', include('doc.urls')),
