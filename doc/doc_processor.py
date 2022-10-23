@@ -3,13 +3,16 @@
     
 
 
+from django.urls import reverse
+
+
 def site_info():
     from doc.models import ExSite      
     site = ExSite.on_site.get()   
     site_info = {
         'name' : site.site.name,
         'domain' : site.site.domain, 
-        'canonical' : site.site.domain,
+        'canonical' : reverse('selfurl:index'),
         'meta_name': site.site_meta,
         'description': site.site_description,
         'tag': site.site_meta_tag,
