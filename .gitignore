@@ -13,3 +13,11 @@ static/assets/scss
 static/assets/gulpfile.js
 static/assets/package.json
 static/CACHE
+bds
+templates/bds
+static/css/bds.css
+static/js/bds.js
+static/upload/require_files
+static/upload/serice_image
+static/vendor/aos
+static/vendor/bootstrap-icons

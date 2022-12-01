@@ -186,7 +186,7 @@ def get_agent(request):
     
     data = {
         'user_usage' : user_usage ,
-        'user_browser' : request.user_agent.browser  ,
+        'user_browser' : request.user_agent.browser,
         'user_os' : request.user_agent.os ,
         'user_device' : request.user_agent.device          
     }    

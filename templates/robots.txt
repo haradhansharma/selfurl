@@ -1,19 +1,33 @@
-User-Agent: *
+{% comment %} User-Agent: * {% endcomment %}
 Disallow: /admin/
 Disallow: /config/
 Disallow: /su/statistics/
 Disallow: /su/statistics/
-Disallow: /accounts/login/?next=/su/report-malicious/
-Disallow: /accounts/login/?next=/su/statistics/
 Disallow: /nzihomtahj
 Disallow: /bnhnaqixfo
-Disallow: /accounts/login/
-Disallow: /accounts/signup/
-Disallow: /accounts/password_reset/
-Disallow: /accounts/password_reset/done/
-Disallow: /accounts/reset/done/
-Disallow: /accounts/change_pass/
-Disallow: /accounts/logout/
+Disallow: /private/
+Disallow: /junk/
+
+
+User-agent: AdsBot-Google
+User-Agent: Googlebot
+User-Agent: Bingbot
+User-Agent: Slurp
+User-Agent: Googlebot-Image
+User-agent: TruliaBot
+User-agent: Mediapartners-Google
+User-agent: googlebot-news
+Disallow: /
+Disallow: /static/
+
+Disallow: /private/
+Disallow: /junk/
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /accounts/*
+
+
+Crawl-delay: 10
 
 
 

@@ -19,10 +19,18 @@ from django.contrib.auth.views import LoginView, PasswordResetView, PasswordRese
 from doc.doc_processor import site_info
 from django.contrib.auth import update_session_auth_hash
 from django.utils.decorators import method_decorator
+from django.core.exceptions import PermissionDenied
 
 @coockie_exempts
 @login_required
 def profile_setting(request, username): 
+    
+    try:
+        if username != request.user.username:
+            messages.error(request, 'Request is not accessible')         
+            return HttpResponseRedirect(reverse('bds:bds'))
+    except:
+        raise PermissionDenied
     
     title = username
     description = 'You can manage your personal information here.'
