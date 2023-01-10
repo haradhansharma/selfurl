@@ -1,4 +1,14 @@
-{% comment %} User-Agent: * {% endcomment %}
+
+User-agent: *
+
+
+Disallow: /static/
+
+Disallow: /private/
+Disallow: /junk/
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /accounts/*
 Disallow: /admin/
 Disallow: /config/
 Disallow: /su/statistics/
@@ -8,23 +18,6 @@ Disallow: /bnhnaqixfo
 Disallow: /private/
 Disallow: /junk/
 
-
-User-agent: AdsBot-Google
-User-Agent: Googlebot
-User-Agent: Bingbot
-User-Agent: Slurp
-User-Agent: Googlebot-Image
-User-agent: TruliaBot
-User-agent: Mediapartners-Google
-User-agent: googlebot-news
-Disallow: /
-Disallow: /static/
-
-Disallow: /private/
-Disallow: /junk/
-Disallow: /admin/
-Disallow: /accounts/
-Disallow: /accounts/*
 
 
 Crawl-delay: 10
