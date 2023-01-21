@@ -7,31 +7,10 @@ Disallow: /static/
 Disallow: /private/
 Disallow: /junk/
 Disallow: /admin/
-Disallow: /accounts/
-Disallow: /accounts/*
-Disallow: /admin/
 Disallow: /config/
-Disallow: /su/statistics/
-Disallow: /su/statistics/
-Disallow: /nzihomtahj
-Disallow: /bnhnaqixfo
-Disallow: /private/
-Disallow: /junk/
-
 
 
 Crawl-delay: 10
-
-
-
-
-
-
-
-
-
-
-
 
 
 Sitemap: https://selfurl.xyz/su/sitemap.xml

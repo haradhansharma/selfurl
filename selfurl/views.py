@@ -219,6 +219,7 @@ def redirect_url(request, short_url):
     user_agent = get_user_agent(request) 
     
     full_url = request.build_absolute_uri()
+    
     parser_full = urlparse(full_url)        
     
     url = ''   
@@ -258,7 +259,7 @@ def redirect_url(request, short_url):
             else:
                 return HttpResponseRedirect(redirect_to) 
                        
-    except Exception as e:          
+    except Exception as e:               
         raise Http404('Sorry this link is broken :(')
     
     title = f'{short_url}...........'

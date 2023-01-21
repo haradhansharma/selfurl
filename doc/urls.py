@@ -12,9 +12,9 @@ DO NOT FORGET TO MAKE MIGRATION AFTER ADDING PATH! IT IS IMPORTNT!
 app_name = 'doc'
 
 urlpatterns = [
-    path('su/webmanifest/', views.webmanifest, name='webmanifest'),
-    path('su/terms-and-conditions/', views.terms_and_conditions, name='terms_and_conditions'),
-    path('su/privacy-policy/', views.privacy_policy, name='privacy_policy'),  
+    path('webmanifest/', views.webmanifest, name='webmanifest'),
+    path('terms-and-conditions/', views.terms_and_conditions, name='terms_and_conditions'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),  
     
 ] 
 

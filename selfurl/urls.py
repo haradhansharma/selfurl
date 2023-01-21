@@ -28,10 +28,10 @@ sitemaps = {
 
 urlpatterns = [
     path('', views.index, name='index'),    
-    path('su/report-malicious/', views.report_malicious, name='report_malicious'),
-    path('su/statistics/', views.statistics, name='statistics'),    
-    path('su/sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),   
-    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name='robot'),
+    path('report-malicious/', views.report_malicious, name='report_malicious'),
+    path('statistics/', views.statistics, name='statistics'),    
+    path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),   
+    path("robots.txt/", TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name='robot'),
 ] 
 
 def get_self_urls():        

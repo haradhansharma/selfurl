@@ -13,7 +13,7 @@ app_name = 'contact'
 
 
 urlpatterns = [
-    path('su/contact/', views.contact, name='contact'),  
+    path('contact/', views.contact, name='contact'),  
     
 ]
 

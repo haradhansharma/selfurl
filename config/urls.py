@@ -18,6 +18,8 @@ urlpatterns = [
     path('', include('selfurl.urls')),
     path('', include('contact.urls')),
     path('', include('doc.urls')),
+    path('lc/', include('license_control.urls')),
+    
     # path('bds/', include('bds.urls')),
     
     path('accounts/', include('accounts.urls')),
