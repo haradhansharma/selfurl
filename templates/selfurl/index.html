@@ -36,6 +36,32 @@
             <div class="row g-3 align-items-center">
                 <p><span class="text-danger">Previous URL:</span> {{data.long_url}}</p>
             </div>
+
+
+
+            <!-- Go to www.addthis.com/dashboard to customize your tools -->
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4d95fcae2a2f4222"></script>
+            <script type="text/javascript">
+                function copy() {
+                    let textarea = document.getElementById("urlresult");
+                    textarea.select();
+                    document.execCommand("copy");
+                }
+                var addthis_share = {
+                    url: "{{request.build_absolute_uri}}{{data.short_url}}",
+                    title: "The short url created by {{site.domain}} is ",
+                }
+                var addthis_config = {
+                    data_track_clickback: false,
+                    data_track_addressbar: false,
+                } 
+            </script>
+
+
+  
+
+
+
             {% else %}
             <form action="" method="POST">
                 {% csrf_token %}
