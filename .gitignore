@@ -21,3 +21,13 @@ static/upload/require_files
 static/upload/serice_image
 static/vendor/aos
 static/vendor/bootstrap-icons
+
+
+webtools
+brl.py
+cwhois.py
+dnscheck.py
+email_check.py
+lb.py
+opt.py
+rcheck.py
