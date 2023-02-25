@@ -58,7 +58,7 @@ def terms_and_conditions(request):
     
     seo_info = site_info() 
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('doc:terms_and_conditions')),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': description,        
         'slogan': title, 
     }    
@@ -79,7 +79,7 @@ def privacy_policy(request):
     
     seo_info = site_info() 
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('doc:privacy_policy')),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': description,        
         'slogan': title, 
     }    

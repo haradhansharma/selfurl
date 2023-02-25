@@ -25,7 +25,7 @@ def contact(request):
     
     seo_info = site_info() 
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('contact:contact')),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': description,        
         'slogan': title,              
     }    

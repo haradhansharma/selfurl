@@ -37,7 +37,7 @@ def profile_setting(request, username):
     
     seo_info = site_info() 
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('accounts:profile_setting', args=[str(username)])),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': description,        
         'slogan': title, #it will work as a title as well.
              
@@ -87,7 +87,7 @@ def password_change(request):
     
     seo_info = site_info() 
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('accounts:change_pass')),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': description,        
         'slogan': title,              
     }    
@@ -131,7 +131,7 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
         
         seo_info = site_info() 
         modify = {
-            'canonical' : self.request.build_absolute_uri(reverse('accounts:password_reset_complete')),
+            'canonical' : self.request.build_absolute_uri(self.request.path),
             'description': description,        
             'slogan': title + f" to {seo_info.get('domain')}"            
         }    
@@ -163,7 +163,7 @@ class CustomPasswordResetView(PasswordResetView):
         
         seo_info = site_info() 
         modify = {
-            'canonical' : self.request.build_absolute_uri(reverse('accounts:password_reset')),
+            'canonical' : self.request.build_absolute_uri(self.request.path),
             'description': description,        
             'slogan': title + f" to {seo_info.get('domain')}"            
         }    
@@ -190,7 +190,7 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
         
         seo_info = site_info() 
         modify = {
-            'canonical' : self.request.build_absolute_uri(reverse('accounts:password_reset_done')),
+            'canonical' : self.request.build_absolute_uri(self.request.path),
             'description': description,        
             'slogan': title + f" to {seo_info.get('domain')}"            
         }    
@@ -222,7 +222,7 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
         
         seo_info = site_info() 
         modify = {
-            'canonical' : self.request.build_absolute_uri(self.request.META['PATH_INFO']),
+            'canonical' : self.request.build_absolute_uri(self.request.path),
             'description': description,        
             'slogan': title + f" to {seo_info.get('domain')}"            
         }    
@@ -284,7 +284,7 @@ class CustomLoginView(LoginView):
         
         seo_info = site_info() 
         modify = {
-            'canonical' : self.request.build_absolute_uri(reverse('accounts:login')),
+            'canonical' : self.request.build_absolute_uri(self.request.path),
             'description': description,        
             'slogan': title + f" to {seo_info.get('domain')}"            
         }    
@@ -308,7 +308,7 @@ def signup(request):
     
     seo_info = site_info() 
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('accounts:signup')),
+        'canonical' : self.request.build_absolute_uri(self.request.path),
         'description': description + f" at {seo_info.get('domain')}"  ,       
         'slogan': title + f" to {seo_info.get('domain')}"            
     }    

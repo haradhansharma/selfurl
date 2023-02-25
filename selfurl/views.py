@@ -47,7 +47,7 @@ def index(request):
     
     seo_info = site_info() 
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('selfurl:index')),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': description,        
         'slogan': title, 
     }    
@@ -271,7 +271,7 @@ def redirect_url(request, short_url):
     
     seo_info = site_info()  
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('selfurl:redirect_url', args=[str(short_url)])),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': description,        
         'slogan': title, #it will work as a title as well.             
     }    
@@ -351,7 +351,7 @@ def allreport(request, short_url):
     
     seo_info = site_info() 
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('selfurl:allreport', args=[str(short_url)])),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': "All reports submitted for this short URL as malicious are listed here.",  
         'slogan': f"All Reports of URL", 
     }    
@@ -376,7 +376,7 @@ def statistics(request):
     
     seo_info = site_info() 
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('selfurl:statistics')),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': description,        
         'slogan': title,             
     }    
@@ -411,7 +411,7 @@ def statistics(request):
 def log_details(request, short_url):
     seo_info = site_info() 
     modify = {
-        'canonical' : request.build_absolute_uri(reverse('selfurl:log_details', args=[str(short_url)])),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': "Every time someone clicks on your short URL, our technology will keep track. It doesn't matter if it came from the same device or from the same person.",  
         'slogan': f"Visitor Logs of shorten URL",         
     }    
