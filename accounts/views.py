@@ -308,7 +308,7 @@ def signup(request):
     
     seo_info = site_info() 
     modify = {
-        'canonical' : self.request.build_absolute_uri(self.request.path),
+        'canonical' : request.build_absolute_uri(request.path),
         'description': description + f" at {seo_info.get('domain')}"  ,       
         'slogan': title + f" to {seo_info.get('domain')}"            
     }    
