@@ -39,8 +39,7 @@ def profile_setting(request, username):
     modify = {
         'canonical' : request.build_absolute_uri(request.path),
         'description': description,        
-        'slogan': title, #it will work as a title as well.
-             
+        'slogan': title, #it will work as a title as well.             
     }    
     seo_info.update(modify)  
      
